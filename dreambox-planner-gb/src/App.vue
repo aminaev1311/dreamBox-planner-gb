@@ -1,17 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CardList :tasks="tasks" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CardList from "./components/Card-List.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    CardList,
+  },
+  data() {
+    return {
+      tasks: [
+        { title: "task1", id: 1 },
+        { title: "task2", id: 2 },
+        { title: "task3", id: 3 },
+      ],
+    };
+  },
+};
 </script>
 
 <style>

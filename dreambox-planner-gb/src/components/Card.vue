@@ -1,7 +1,14 @@
-<template></template>
+<template>
+  <div>{{ task.id }} - {{ task.title }}</div>
+</template>
 
 <script>
-export default {};
+export default {
+  name: "card",
+  props: {
+    task: Object,
+  },
+};
 </script>
 
 <style></style>
