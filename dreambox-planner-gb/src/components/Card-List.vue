@@ -11,16 +11,16 @@ export default {
   components: {
     Card,
   },
-  props: {
-    tasks: Array,
-  },
+  // props: {
+  //   tasks: Array,
+  // },
   data() {
     return {
-      // tasks: [
-      //   { title: "task1", id: 1 },
-      //   { title: "task2", id: 3 },
-      //   { title: "task2", id: 3 },
-      // ],
+      tasks: [
+        { title: "task1", id: 1, text: "text1", deadline: '10-12-2021' },
+        { title: "task2", id: 2, text: "text2", deadline: '11-12-2021' },
+        { title: "task2", id: 3, text: "text3", deadline: '12-12-2021' },
+      ],
     };
   },
 };

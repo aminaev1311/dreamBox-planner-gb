@@ -1,14 +1,17 @@
 <template>
-  <CardList :tasks="tasks" />
+  <div>
+    <CardList :tasks="tasks" />
+  </div>
 </template>
 
 <script>
 import CardList from "./components/Card-List.vue";
 
+
 export default {
   name: "App",
   components: {
-    CardList,
+    CardList
   },
   data() {
     return {
