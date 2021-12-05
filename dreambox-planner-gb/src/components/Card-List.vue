@@ -1,5 +1,5 @@
 <template>
-  <div v-for="task in tasks" :key="task.id">
+  <div v-for="task in tasks" :key="task.id" class="card-list">
     <Card :task="task" />
   </div>
 </template>
@@ -26,4 +26,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+.card-list
+  display: flex
+  justify-content: center
+</style>

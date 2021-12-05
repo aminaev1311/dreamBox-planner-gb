@@ -1,5 +1,5 @@
 <template>
-  <div>{{ task.id }} - {{ task.title }}</div>
+  <div class="card">{{ task.id }} - {{ task.title }}</div>
 </template>
 
 <script>
@@ -11,4 +11,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+.card
+  border: 1px solid black
+  width: 200px
+  height: 100px
+</style>
