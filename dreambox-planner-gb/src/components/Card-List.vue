@@ -15,13 +15,7 @@ export default {
     tasks: Array,
   },
   data() {
-    return {
-      // tasks: [
-      //   { title: "task1", id: 1 },
-      //   { title: "task2", id: 3 },
-      //   { title: "task2", id: 3 },
-      // ],
-    };
+    return {};
   },
 };
 </script>
