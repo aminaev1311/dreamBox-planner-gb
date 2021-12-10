@@ -1,5 +1,5 @@
 <template>
-  <div v-for="task in tasks" :key="task.id" class="card-list">
+  <div v-for="task in fetchedTasks" :key="task.id" class="card-list">
     <Card :task="task" />
   </div>
 </template>
@@ -11,11 +11,19 @@ export default {
   components: {
     Card,
   },
-  props: {
-    tasks: Array,
-  },
   data() {
-    return {};
+    return {
+      fetchedTasks: [],
+    };
+  },
+  mounted() {
+    this.$nextTick(async function () {
+      // Code that will run only after the
+      // entire view has been rendered
+      this.fetchedTasks = await fetch("http://localhost:3004/tasks").then(
+        (res) => res.json()
+      );
+    });
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <CardList :tasks="tasks" />
+  <CardList />
   <button @click="clickHandler">
     {{ addTask ? "Close Add Task" : "Add Task" }}
   </button>
@@ -18,11 +18,6 @@ export default {
   },
   data() {
     return {
-      tasks: [
-        { id: 1, title: "task1", text: "task1 text", deadline: "12-12-2021" },
-        { id: 2, title: "task2", text: "task2 text", deadline: "12-12-2022" },
-        { id: 3, title: "task3", text: "task1 text", deadline: "12-12-2023" },
-      ],
       addTask: false,
     };
   },
