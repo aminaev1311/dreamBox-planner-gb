@@ -1,0 +1,16 @@
+SET NAMES 'UTF8';
+SET CHARACTER SET 'UTF8';
+CREATE TABLE IF NOT EXISTS tasks (
+ id int NOT NULL AUTO_INCREMENT,
+ title VARCHAR(255) COLLATE utf8_unicode_ci,
+ text VARCHAR(255) COLLATE utf8_unicode_ci,
+ deadline DATETIME,
+ PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/* DATETIME YYYY-MM-DD hh:mm:ss */
+
+INSERT INTO tasks (title, text, deadline) 
+values('Мое первое дело', 'Описание из много букв', '2021-12-10'),
+('Мое второе дело', 'Описание второго дела из много букв', '2021-12-11 12:00:00'),
+('Моя мечта', 'Хочу совершить восхождение на Эверест!', '2022-04-11 08:00:00');
