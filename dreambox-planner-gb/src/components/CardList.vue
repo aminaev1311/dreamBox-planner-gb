@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Card from "./Card.vue";
 export default {
   name: "card-list",
@@ -15,6 +16,9 @@ export default {
     return {
       fetchedTasks: [],
     };
+  },
+  computed: {
+    ...mapGetters(["getTaskList"])
   },
   mounted() {
     this.$nextTick(async function () {

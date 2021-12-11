@@ -7,13 +7,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: "App",
   components: {},
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    ...mapActions(['fetchData'])
+  },
+  mounted () {
+    this.fetchData()
+  }
 };
 </script>
 
