@@ -64,7 +64,7 @@ form {
   padding: 8px;
 }
 .card-creation {
-  width: 75%;
+  width: 50%;
   border: 1px solid black;
   border-radius: 16px;
   margin: auto;
