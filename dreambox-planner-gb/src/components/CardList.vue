@@ -21,13 +21,13 @@ export default {
     ...mapGetters(["getTaskList"])
   },
   mounted() {
-    this.$nextTick(async function () {
-      // Code that will run only after the
-      // entire view has been rendered
-      this.fetchedTasks = await fetch("http://localhost:3004/tasks").then(
-        (res) => res.json()
-      );
-    });
+    // this.$nextTick(async function () {
+    //   // Code that will run only after the
+    //   // entire view has been rendered
+    //   this.fetchedTasks = await fetch("http://localhost:3004/tasks").then(
+    //     (res) => res.json()
+    //   );
+    // });
   },
 };
 </script>

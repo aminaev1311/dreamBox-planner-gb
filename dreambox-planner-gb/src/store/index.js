@@ -1,4 +1,6 @@
 import { createStore } from 'vuex'
+import GET_URL from '../misc/constants.js'
+
 
 export default createStore({
   state: {
@@ -16,7 +18,7 @@ export default createStore({
     fetchData ({ commit }) {
       return new Promise((resolve) => {
         resolve(
-          fetch("http://dreambox.1gb.ru/api/tasks.php")
+          fetch(GET_URL)
         )
       })
       .then(
