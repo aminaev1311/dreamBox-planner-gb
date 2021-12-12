@@ -12,51 +12,51 @@
         />
       </div>
       <div>
-        <input type="date" title="Deadline" v-model="task.deadline"/>
-        <input type="checkbox" title="pereodical" />
+        <input type="date" title="Deadline" v-model="task.deadline" />
+        <!-- <input type="checkbox" title="pereodical" /> -->
       </div>
       <div class="controls">
         <div class="addBtn" @click="sendData(task)">+</div>
-        <button>EDIT</button>
-        <button>Done</button>
+        <!-- <button>EDIT</button>
+        <button>Done</button> -->
       </div>
     </form>
   </div>
 </template>
 
 <script>
-// import PUT_URL from '../misc/constants.js'
+import { POST_URL } from "../misc/constants.js";
 
 export default {
   data: () => ({
     task: {
       title: null,
       text: "",
-      deadline: null
-    }
+      deadline: null,
+    },
   }),
   name: "cardCreation",
   methods: {
-    sendData(formData) {        
-      const data = JSON.stringify(formData)
-      console.log(data)
+    sendData(formData) {
+      const data = JSON.stringify(formData);
+      console.log(data);
       const fetchOptions = {
         credentials: "include",
         method: "POST",
-        headers: { "Content-Type": "application/json", },
+        headers: { "Content-Type": "application/json" },
         body: data,
-      }
-      fetch("http://dreambox.1gb.ru/api/tasks.php", fetchOptions)
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log( "Error occured: ",  error.message )
-      });
-    }
+      };
+      fetch(POST_URL, fetchOptions)
+        .then((response) => response.json())
+        .catch((error) => {
+          console.log("Error occured: ", error.message);
+        });
+    },
   },
   mounted() {
     document.getElementById("taskBase").focus();
   },
-}
+};
 </script>
 
 <style>
@@ -99,12 +99,11 @@ button {
   font-size: 28px;
   color: white;
   margin: auto;
-  background: #62013C;
+  background: #62013c;
   transition: 0.5s;
-
 }
 .addBtn:hover {
   transition: 0.5s;
-  background: #400027
+  background: #400027;
 }
 </style>

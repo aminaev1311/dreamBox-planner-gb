@@ -4,6 +4,8 @@ https://github.com/aminaev1311/dreamBox-planner-gb
 https://trello.com/b/TfircoyI/dreambox-gb-planner
 #hosting
 http://dreambox.1gb.ru/
+#figma
+https://www.figma.com/file/9Y2nbGSknCF5LGmVAihwWb/dreamBox-planner-gb?node-id=32%3A135
 
 ## Project setup
 

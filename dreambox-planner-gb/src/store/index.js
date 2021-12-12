@@ -1,33 +1,28 @@
-import { createStore } from 'vuex'
-import GET_URL from '../misc/constants.js'
-
+import { createStore } from "vuex";
+import { GET_URL } from "../misc/constants.js";
 
 export default createStore({
   state: {
-    taskList: {}
+    taskList: {},
   },
   mutations: {
-    setTaskList (state, payload) {
-      state.taskList = payload
-    }
+    setTaskList(state, payload) {
+      state.taskList = payload;
+    },
   },
   getters: {
-    getTaskList: state => state.taskList
+    getTaskList: (state) => state.taskList,
   },
   actions: {
-    fetchData ({ commit }) {
+    fetchData({ commit }) {
       return new Promise((resolve) => {
-        resolve(
-          fetch(GET_URL)
-        )
+        resolve(fetch(GET_URL));
       })
-      .then(
-        (res) => res.json()
-      )
-      .then(res => {
-        commit('setTaskList', res)
-      })
-    }
+        .then((res) => res.json())
+        .then((res) => {
+          commit("setTaskList", res);
+        });
+    },
 
     // async fetchData ({ commit }) {
     //   // Code that will run only after the

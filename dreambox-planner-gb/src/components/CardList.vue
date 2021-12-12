@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 import Card from "./Card.vue";
+import { GET_URL } from "../misc/constants.js";
 export default {
   name: "card-list",
   components: {
@@ -14,26 +15,18 @@ export default {
   },
   data() {
     return {
-      fetchedTasksObject: {},
       fetchedTasks: [],
-      tasksUrl: "http://dreambox.1gb.ru/api/tasks.php",
     };
   },
   computed: {
-    ...mapGetters(["getTaskList"])
+    ...mapGetters(["getTaskList"]),
   },
   mounted() {
     this.$nextTick(async function () {
-      // Code that will run only after the
-      // entire view has been rendered
-      // this.fetchedTasks = await fetch("http://localhost:3004/tasks").then(
-      //   (res) => res.json()
-      // );
-      this.fetchedTasksObject = await fetch(this.tasksUrl).then((res) =>
-        res.json()
-      );
-      for (const key in this.fetchedTasksObject) {
-        this.fetchedTasks.push(this.fetchedTasksObject[key]);
+      let fetchedTasksObject = {};
+      fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());
+      for (const key in fetchedTasksObject) {
+        this.fetchedTasks.push(fetchedTasksObject[key]);
       }
     });
   },
