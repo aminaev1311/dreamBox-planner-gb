@@ -9,6 +9,8 @@
 </template>
 
 <script>
+
+import { mapActions } from 'vuex'
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
@@ -21,7 +23,12 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    ...mapActions(['fetchData'])
+  },
+  mounted () {
+    //this.fetchData()
+  }
 };
 </script>
 

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Card from "./Card.vue";
 export default {
   name: "card-list",
@@ -17,6 +18,9 @@ export default {
       fetchedTasks: [],
       tasksUrl: "http://dreambox.1gb.ru/api/tasks.php",
     };
+  },
+  computed: {
+    ...mapGetters(["getTaskList"])
   },
   mounted() {
     this.$nextTick(async function () {
