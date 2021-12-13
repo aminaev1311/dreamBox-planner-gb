@@ -44,7 +44,7 @@ export default {
         credentials: "include",
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: data,
+        body: "json=" + data,
       };
       fetch(POST_URL, fetchOptions)
         .then((response) => response.json())

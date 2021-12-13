@@ -15,9 +15,7 @@ export default createStore({
   },
   actions: {
     fetchData({ commit }) {
-      return new Promise((resolve) => {
-        resolve(fetch(GET_URL));
-      })
+      return fetch(GET_URL)
         .then((res) => res.json())
         .then((res) => {
           commit("setTaskList", res);
