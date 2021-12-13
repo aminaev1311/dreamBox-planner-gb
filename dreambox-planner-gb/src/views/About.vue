@@ -5,7 +5,7 @@
     on the most interesting projects
   </h3>
   <h3>
-    In 5 year I would like to be a senior front-end developer working in my own
+    In 5 years I would like to be a senior front-end developer working in my own
     start-up on the most crazy projects
   </h3>
 </template>
