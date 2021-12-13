@@ -38,7 +38,11 @@ export default {
   name: "cardCreation",
   methods: {
     sendData(formData) {
-      const data = JSON.stringify(formData);
+      let data = formData
+      if (!data.title) {
+        data.title = data.text.split(' ').slice(0, 3).join(' ')
+      }
+      data = JSON.stringify(data);
       console.log(data);
       const fetchOptions = {
         credentials: "include",
@@ -51,6 +55,7 @@ export default {
         .catch((error) => {
           console.log("Error occured: ", error.message);
         });
+      this.$emit('taskAdded')
     },
   },
   mounted() {
