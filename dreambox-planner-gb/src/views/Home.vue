@@ -3,7 +3,7 @@
   <button @click="clickHandler">
     {{ addTask ? "Close Add Task" : "Add Task" }}
   </button>
-  <CardCreation v-if="addTask" />
+  <CardCreation v-if="addTask" @taskAdded="clickHandler"/>
 </template>
 
 <script>
