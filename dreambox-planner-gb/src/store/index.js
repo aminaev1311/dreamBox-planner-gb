@@ -9,6 +9,12 @@ export default createStore({
     setTaskList(state, payload) {
       state.taskList = payload;
     },
+    addTask(state, { title, text, deadline }) {
+      if (text) {
+        // const id = state.taskList.length + 1;
+        state.taskList.push({ title, text, deadline });
+      }
+    },
   },
   getters: {
     getTaskList: (state) => state.taskList,
@@ -22,16 +28,15 @@ export default createStore({
     //     });
     // },
 
-    async fetchData ({ commit }) {
+    async fetchData({ commit }) {
       let fetchedTasksObject = {};
       fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());
-      let fetchedTasks = []
+      let fetchedTasks = [];
       for (const key in fetchedTasksObject) {
         fetchedTasks.push(fetchedTasksObject[key]);
       }
-      commit("setTaskList", fetchedTasks)
-    }
-
+      commit("setTaskList", fetchedTasks);
+    },
   },
   modules: {},
 });

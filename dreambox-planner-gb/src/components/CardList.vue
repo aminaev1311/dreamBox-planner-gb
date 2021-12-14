@@ -1,5 +1,5 @@
 <template>
-  <div v-for="task in fetchedTasks" :key="task.id" class="card-list">
+  <div v-for="task in getTaskList" :key="task.id" class="card-list">
     <Card :task="task" />
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
   computed: {
     ...mapGetters(["getTaskList"]),
   },
-  mounted() {
-    this.fetchedTasks = this.getTaskList
+  created() {
+    // this.fetchedTasks = this.getTaskList;
   },
 };
 </script>

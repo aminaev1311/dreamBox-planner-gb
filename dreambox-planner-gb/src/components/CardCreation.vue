@@ -26,6 +26,7 @@
 
 <script>
 import { POST_URL } from "../misc/constants.js";
+import { mapMutations } from "vuex"
 
 export default {
   data: () => ({
