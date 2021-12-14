@@ -27,7 +27,7 @@ export default {
     ...mapActions(['fetchData'])
   },
   mounted () {
-    //this.fetchData()
+    this.fetchData()
   }
 };
 </script>

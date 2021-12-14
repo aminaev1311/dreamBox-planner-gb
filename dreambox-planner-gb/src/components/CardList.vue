@@ -7,6 +7,7 @@
 <script>
 import { mapGetters } from "vuex";
 import Card from "./Card.vue";
+
 // import { GET_URL } from "../misc/constants.js";
 
 export default {
@@ -23,15 +24,7 @@ export default {
     ...mapGetters(["getTaskList"]),
   },
   mounted() {
-    // this.$nextTick(async function () {
-    //   let fetchedTasksObject = {};
-    //   fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());
-    //   for (const key in fetchedTasksObject) {
-    //     this.fetchedTasks.push(fetchedTasksObject[key]);
-    //   }
-    // });
-    fetchData(),
-    fetchedTasks = getTaskList()
+    this.fetchedTasks = this.getTaskList
   },
 };
 </script>
