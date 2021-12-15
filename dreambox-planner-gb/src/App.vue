@@ -2,9 +2,13 @@
   <Header />
   <div class="container">
     <Nav />
-    <router-view />
+    <main class="main">
+      <router-view />
+    </main>
+
     <Footer />
   </div>
+
 <!--  <div id="nav">-->
 <!--    <router-link to="/">Tasks</router-link> |-->
 <!--    <router-link to="/about">Vision</router-link>-->
@@ -47,5 +51,11 @@ export default {
 .container {
   width: 1200px;
   margin: 0 auto;
+  min-height: calc(100vh - 95px);
+  position: relative;
+}
+
+.main {
+  padding-bottom: 40px;
 }
 </style>

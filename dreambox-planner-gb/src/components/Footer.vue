@@ -1,8 +1,8 @@
 <template>
-  <div class="footerContainer">
+  <footer class="footerContainer">
     <h4 class="footerHeading">Make you code come true!</h4>
     <div class="footerVersion">v.1.0.0</div>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -12,8 +12,13 @@ export default {};
 <style lang="sass" scoped>
 .footerContainer
   display: flex
-  justify-content: space-around
+  justify-content: space-between
   align-items: center
+  position: absolute
+  bottom: 0
+  width: 100%
+  height: 40px   /* Height of the footer */
+  padding: 12px 25px
 .footerHeading
   text-align: center
   color: #E5E5E5
