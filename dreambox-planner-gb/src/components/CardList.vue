@@ -1,5 +1,5 @@
 <template>
-  <div v-for="task in getTaskList" :key="task.id" class="card-list">
+  <div v-for="task in getTasks" :key="task.id" class="card-list">
     <Card :task="task" />
   </div>
 </template>
@@ -7,8 +7,6 @@
 <script>
 import { mapGetters } from "vuex";
 import Card from "./Card.vue";
-
-// import { GET_URL } from "../misc/constants.js";
 
 export default {
   name: "card-list",
@@ -21,7 +19,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getTaskList"]),
+    ...mapGetters(["getTasks"]),
   },
   created() {
     // this.fetchedTasks = this.getTaskList;

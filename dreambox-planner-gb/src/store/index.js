@@ -6,7 +6,7 @@ export default createStore({
     taskList: [],
   },
   mutations: {
-    setTaskList(state, payload) {
+    setTasks(state, payload) {
       state.taskList = payload;
     },
     addTask(state, { title, text, deadline }) {
@@ -17,7 +17,7 @@ export default createStore({
     },
   },
   getters: {
-    getTaskList: (state) => state.taskList,
+    getTasks: (state) => state.taskList,
   },
   actions: {
     // fetchData({ commit }) {
@@ -35,7 +35,7 @@ export default createStore({
       for (const key in fetchedTasksObject) {
         fetchedTasks.push(fetchedTasksObject[key]);
       }
-      commit("setTaskList", fetchedTasks);
+      commit("setTasks", fetchedTasks);
     },
   },
   modules: {},
