@@ -11,6 +11,19 @@ class Dream_DB {
         $this->connect();
     }
 
+    private function sanitizeStr ($str = '') {
+        $str = trim($str);
+        $str = addslashes($str);
+        $str = htmlspecialchars($str);
+        return $str;
+    }
+
+    private function rollBackSanitize ($str = '') {
+        $str = htmlspecialchars_decode($str);
+        $str = stripslashes($str);
+        return $str;
+    }
+
     private function connect() {
         try {
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -28,6 +41,10 @@ class Dream_DB {
         }
     }
 
+    public function closeConnect () {
+        $this->conn-close();
+    }
+
     public function get_rows () {
         $result = [];
         if ($this->conn) {
@@ -36,12 +53,21 @@ class Dream_DB {
             while ($row = $fetch->fetch_assoc()) {
                 array_push($result, array(
                                     'id' => $row['id'], 
-                                    'title' => $row['title'], 
-                                    'text' => $row['text'], 
-                                    'deadline' => $row['deadline']
+                                    'title' => $this->rollBackSanitize($row['title']), 
+                                    'text' => $this->rollBackSanitize($row['text']), 
+                                    'deadline' => $this->rollBackSanitize($row['deadline'])
                                     )
                                 );
             }
+        }
+        if (!empty($result)) {
+            function cmp ($a, $b) {
+                if ($a['id'] == $b['id']) {
+                    return 0;
+                }
+                return ($a['id'] < $b['id']) ? -1 : 1;
+            }
+            usort($result, 'cmp');
         }
         return $result;
     }
@@ -51,6 +77,9 @@ class Dream_DB {
         if ($this->conn && !empty($array)) {
             
             $vals = array_values($array);
+            foreach($vals as &$val) {
+                $val = $this->sanitizeStr($val);
+            }
             
             function prepare_query_str (&$item) {
                 $item = "'$item'";
@@ -61,7 +90,9 @@ class Dream_DB {
             $tbl_vals = implode(', ', array_values($vals));
             
             $query = "INSERT INTO tasks (" . $tbl_names . ") VALUES(" . $tbl_vals . ")";
-            $result = $this->conn->query($query, MYSQLI_USE_RESULT);
+            $res_obj = $this->conn->query($query);
+            
+            $result = $this->conn->insert_id;
         }
         return $result;
     }
