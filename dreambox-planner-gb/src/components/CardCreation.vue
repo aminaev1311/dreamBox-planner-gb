@@ -26,6 +26,7 @@
 
 <script>
 import { POST_URL } from "../misc/constants.js";
+import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
@@ -37,10 +38,11 @@ export default {
   }),
   name: "cardCreation",
   methods: {
-    sendData(formData) {
-      let data = formData
+    ...mapMutations(["addTask"]),
+    async sendData(formData) {
+      let data = formData;
       if (!data.title) {
-        data.title = data.text.split(' ').slice(0, 3).join(' ')
+        data.title = data.text.split(" ").slice(0, 3).join(" ");
       }
       data = JSON.stringify(data);
       console.log(data);
@@ -50,12 +52,26 @@ export default {
         headers: { "Content-Type": "application/json" },
         body: "json=" + data,
       };
-      fetch(POST_URL, fetchOptions)
-        .then((response) => response.json())
-        .catch((error) => {
-          console.log("Error occured: ", error.message);
-        });
-      this.$emit('taskAdded')
+      try {
+        let serverMsg = await fetch(POST_URL, fetchOptions)
+          .then((response) => {
+            let serverRes = response.json();
+            return serverRes;
+          })
+          .then((data) => {
+            return data;
+          });
+        // .catch((error) => {
+        //   console.log("Error occured: ", error.message);
+        // });
+        if (serverMsg) {
+          //only if the server return a message, i.e. success, add to store
+          this.addTask(this.task);
+          this.$emit("taskAdded");
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
     },
   },
   mounted() {

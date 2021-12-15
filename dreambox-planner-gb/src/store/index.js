@@ -3,36 +3,40 @@ import { GET_URL } from "../misc/constants.js";
 
 export default createStore({
   state: {
-    taskList: {},
+    taskList: [],
   },
   mutations: {
-    setTaskList(state, payload) {
+    setTasks(state, payload) {
       state.taskList = payload;
+    },
+    addTask(state, { title, text, deadline }) {
+      if (text) {
+        // const id = state.taskList.length + 1;
+        state.taskList.push({ title, text, deadline });
+      }
     },
   },
   getters: {
-    getTaskList: (state) => state.taskList,
+    getTasks: (state) => state.taskList,
   },
   actions: {
-    fetchData({ commit }) {
-      return fetch(GET_URL)
-        .then((res) => res.json())
-        .then((res) => {
-          commit("setTaskList", res);
-        });
-    },
+    // fetchData({ commit }) {
+    //   return fetch(GET_URL)
+    //     .then((res) => res.json())
+    //     .then((res) => {
+    //       commit("setTaskList", res);
+    //     });
+    // },
 
-    // async fetchData ({ commit }) {
-    //   // Code that will run only after the
-    //   // entire view has been rendered
-    //   await fetch("http://dreambox.1gb.ru/api/tasks.php")
-    //   .then(
-    //     (res) => res.json()
-    //   )
-    //   .then(res => {
-    //         commit('setTaskList', res)
-    //       })
-    // }
+    async fetchData({ commit }) {
+      let fetchedTasksObject = {};
+      fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());
+      let fetchedTasks = [];
+      for (const key in fetchedTasksObject) {
+        fetchedTasks.push(fetchedTasksObject[key]);
+      }
+      commit("setTasks", fetchedTasks);
+    },
   },
   modules: {},
 });
