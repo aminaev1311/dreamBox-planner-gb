@@ -123,7 +123,7 @@ class Dream_DB {
         return $result;
     }
 
-    public function remove_row ($id = '') {
+    public function delete_row ($id = '') {
         $result = '';
         if (!empty($id)) {
             $int_id = intval($id);
