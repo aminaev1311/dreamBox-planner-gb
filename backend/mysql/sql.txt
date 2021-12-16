@@ -14,3 +14,5 @@ INSERT INTO tasks (title, text, deadline)
 values('Мое первое дело', 'Описание из много букв', '2021-12-10'),
 ('Мое второе дело', 'Описание второго дела из много букв', '2021-12-11 12:00:00'),
 ('Моя мечта', 'Хочу совершить восхождение на Эверест!', '2022-04-11 08:00:00');
+
+ALTER TABLE tasks ADD status VARCHAR(50) COLLATE utf8_unicode_ci AFTER deadline;

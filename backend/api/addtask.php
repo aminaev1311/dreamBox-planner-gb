@@ -20,8 +20,10 @@ if (empty($front_data)) {
             $ins_ar = [
                 'title' => $json->title,
                 'text'  => $json->text,
-                'deadline' => $json->deadline
+                'deadline' => $json->deadline,
+                'status' => $json->status
             ];
+            /* DATETIME YYYY-MM-DD hh:mm:ss */
 
             $dr_db = new Dream_DB();
 
@@ -34,7 +36,8 @@ if (empty($front_data)) {
     }
 }
 
-header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: null");
 header('Content-Type: application/json');
 echo json_encode($res_data, JSON_UNESCAPED_UNICODE | JSON_FORCE_OBJECT);
 exit;
