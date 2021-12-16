@@ -2,7 +2,7 @@
 require_once '../core/display_errors.php';
 require_once '../core/classes/dream_db.php';
 
-$res_data = array('update' => '', 'errors' => '');
+$res_data = array('delete' => '', 'errors' => '');
 
 // $front_data = file_get_contents('php://input');
 $front_data = '{"id":"20"}';
@@ -19,7 +19,7 @@ if (empty($front_data)) {
 
         if (!empty($ins_ar['id'])) {
             $dr_db = new Dream_DB();
-            $res_data['update'] = $dr_db->delete_row($ins_ar['id']);
+            $res_data['delete'] = $dr_db->delete_row($ins_ar['id']);
         }
     } else {
         $res_data['errors'] = 'Empty id!';
