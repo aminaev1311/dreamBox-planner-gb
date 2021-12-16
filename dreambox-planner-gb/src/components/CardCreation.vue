@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 form {
   padding: 8px;
 }
@@ -105,10 +105,10 @@ form {
 .controls {
   margin-top: 24px;
 }
-button {
-  margin: 8px;
-  border-radius: 4px;
-}
+/*button {*/
+/*  margin: 8px;*/
+/*  border-radius: 4px;*/
+/*}*/
 .addBtn {
   width: 36px;
   height: 36px;
