@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="dashboard-container">
     <div class="dashboard">
       <div class="section">
         <div class="section-header">
@@ -9,38 +9,63 @@
           <a class="section-plus">+</a>
         </div>
         <div class="section-body">
-          <div class="task">
+          <div class="task" v-for="task in getTasks" :key="task.id">
             <div class="task-header">
               <a class="task-check">
                 <font-awesome-icon :icon="['far', 'check-circle']"  />
               </a>
-              <p class="task-title">
-                Написать API для добавления тасков
-              </p>
+              <a class="task-title" v-on:click="openCard(task.id)">
+                {{ task.title }}
+              </a>
             </div>
 
             <p class="task-date">
-              01.01.2022
+              {{ task.deadline }}
             </p>
           </div>
+
         </div>
       </div>
     </div>
-  </main>
+    <CardView :task="taskForView" id="cardView"/>
+  </div>
 </template>
 
 <script>
+import CardView from "@/components/CardView";
+import {mapGetters} from "vuex";
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  components: {CardView},
+  data() {
+    return {
+      taskForView: {}
+    }
+  },
+  computed: {
+    ...mapGetters(["getTasks"]),
+  },
+  methods: {
+    openCard(id) {
+      this.taskForView = this.getTasks.find(task => { return task.id === id})
+      const cardView = document.getElementById('cardView')
+      cardView.style.display = 'block'
+    }
+  }
 }
 </script>
 
 <style lang="sass" scoped>
 .dashboard
-  height: calc(100vh - 200px)
   display: flex
+  width: 100%
+
+  &-container
+    display: flex
+    height: calc(100vh - 200px)
+
 .section
-  width: 166px
+  width: 200px
   margin: 0 16px
 
   &-header
@@ -66,7 +91,6 @@ export default {
     border-radius: 4px
     height: calc(100% - 21px)
     padding: 6px
-    box-sizing: border-box
 
 .task
   margin-bottom: 10px
@@ -85,6 +109,9 @@ export default {
     color: #000000
     text-align: start
     margin-bottom: 10px
+
+    &:hover
+      text-decoration: underline
 
   &-check
     font-size: 16px
