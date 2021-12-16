@@ -55,8 +55,8 @@ class Dream_DB {
                                     'id' => $row['id'], 
                                     'title' => $this->rollBackSanitize($row['title']), 
                                     'text' => $this->rollBackSanitize($row['text']), 
-                                    'deadline' => $this->rollBackSanitize($row['deadline'])
-                                    // 'status' =>  $this->rollBackSanitize($row['status'])
+                                    'deadline' => $this->rollBackSanitize($row['deadline']),
+                                    'status' =>  $this->rollBackSanitize($row['status'])
                                     )
                                 );
             }
