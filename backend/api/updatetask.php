@@ -5,7 +5,7 @@ require_once '../core/classes/dream_db.php';
 $res_data = array('update' => '', 'errors' => '');
 
 // $front_data = file_get_contents('php://input');
-$front_data = '{"id":"20","title":"simple title","text":"just text","deadline":"2022-02-22"}';
+$front_data = '{"id":"20","title":"simple title","text":"just text","deadline":"2022-02-22","status":"active"}';
 
 if (empty($front_data)) {
     $res_data['errors'] = 'Empty data!';

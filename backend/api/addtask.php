@@ -20,7 +20,8 @@ if (empty($front_data)) {
             $ins_ar = [
                 'title' => $json->title,
                 'text'  => $json->text,
-                'deadline' => $json->deadline
+                'deadline' => $json->deadline,
+                'status' => $json->status
             ];
             /* DATETIME YYYY-MM-DD hh:mm:ss */
 
