@@ -48,7 +48,7 @@ class Dream_DB {
     public function get_rows () {
         $result = [];
         if ($this->conn) {
-            $query = 'SELECT id, title, text, deadline FROM tasks LIMIT ' . $this->limit;
+            $query = 'SELECT id, title, text, deadline, status FROM tasks LIMIT ' . $this->limit;
             $fetch = $this->conn->query($query, MYSQLI_USE_RESULT);
             while ($row = $fetch->fetch_assoc()) {
                 array_push($result, array(
