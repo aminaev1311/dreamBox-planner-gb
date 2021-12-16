@@ -122,6 +122,19 @@ class Dream_DB {
         }
         return $result;
     }
+
+    public function remove_row ($id = '') {
+        $result = '';
+        if (!empty($id)) {
+            $int_id = intval($id);
+             if ($int_id !== 0) {
+                $query = "DELETE FROM tasks WHERE id = " . $int_id;
+             } else {
+                 $result = 'Неверный ID!';
+             }
+        }
+        return $result;
+    }
 }
 
 ?>
