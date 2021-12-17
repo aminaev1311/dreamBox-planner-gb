@@ -1,8 +1,12 @@
 <template>
-  <div class="searchContainer">
+  <header class="header">
     <img src="@/assets/logo.svg" alt="logo" />
-    <div class="searchWindow"></div>
-  </div>
+    <div class="search-form">
+      <form>
+        <input class="search-input">
+      </form>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -10,14 +14,16 @@ export default {};
 </script>
 
 <style lang="sass" scoped>
-.searchContainer
+.header
   display: flex
-  justify-content: space-around
-  align-items: center
-.searchWindow
-  border: 1px solid #B3B3B3
-  box-sizing: border-box
-  border-radius: 16px
-  width: 196px
-  height: 35px
+  justify-content: space-between
+  padding: 14px 25px
+.search
+  &-input
+    width: 196px
+    background: #FFFFFF
+    border: 1px solid #B3B3B3
+    box-sizing: border-box
+    border-radius: 16px
+    padding: 10px 15px
 </style>

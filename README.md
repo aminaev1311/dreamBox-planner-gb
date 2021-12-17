@@ -1,3 +1,14 @@
+Figma:<br> https://www.figma.com/file/9Y2nbGSknCF5LGmVAihwWb/dreamBox-planner-gb?node-id=1%3A2 <br>
+Hosting:<br> http://dreambox.1gb.ru/<br>
+Сравнение to-do приложений:<br> https://docs.google.com/spreadsheets/d/1qIhc7yFYwF8QdcQ6JZUM5IH0UweSWBik4F5LLGlSKQs/edit?usp=sharing<br>
+Miro:<br> https://miro.com/app/board/uXjVOfL0lbA=/<br>
+ZOOM chat ~12:оо meet, ~10:oo plan: <br>
+https://luxoft.zoom.us/my/anatoly.m<br>
+Список примеров дизайнов на templatemonster.com<br>
+https://www.templatemonster.com/products/types/admin-templates/topic/information-security-templates/<br>
+Конкретный пример дизайна:<br>
+https://codervent.com/mons/rocker/demo/vertical/index.html<br>
+
 # dreamBox-planner-gb
 to-do list for geekbrains project
 

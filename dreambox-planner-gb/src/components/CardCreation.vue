@@ -15,6 +15,14 @@
         <input type="date" title="Deadline" v-model="task.deadline" />
         <!-- <input type="checkbox" title="pereodical" /> -->
       </div>
+      <div class="status-select">
+        <span>Task Status: </span>
+        <select name="Status" id="status" v-model="task.status">
+          <option value="active" >Active</option>
+          <option value="done">Done</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
       <div class="controls">
         <div class="addBtn" @click="sendData(task)">+</div>
         <!-- <button>EDIT</button>
@@ -34,6 +42,7 @@ export default {
       title: null,
       text: "",
       deadline: null,
+      status: "active"
     },
   }),
   name: "cardCreation",
@@ -80,7 +89,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 form {
   padding: 8px;
 }
@@ -102,13 +111,16 @@ form {
   border-radius: 16px;
   padding: 16px;
 }
+.status-select {
+  margin: 16px;
+}
 .controls {
   margin-top: 24px;
 }
-button {
-  margin: 8px;
-  border-radius: 4px;
-}
+/*button {*/
+/*  margin: 8px;*/
+/*  border-radius: 4px;*/
+/*}*/
 .addBtn {
   width: 36px;
   height: 36px;

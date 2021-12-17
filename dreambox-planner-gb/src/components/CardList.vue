@@ -21,8 +21,10 @@ export default {
   computed: {
     ...mapGetters(["getTasks"]),
   },
-  created() {
+  mounted() {
+    // console.log(1);
     // this.fetchedTasks = this.getTaskList;
+    // console.log("created", this.fetchedTasks);
   },
 };
 </script>
