@@ -11,6 +11,10 @@ class Dream_DB {
         $this->connect();
     }
 
+    public function closeConnect () {
+        $this->conn-close();
+    }
+
     private function sanitizeStr ($str = '') {
         $str = trim($str);
         $str = addslashes($str);
@@ -41,10 +45,6 @@ class Dream_DB {
         }
     }
 
-    public function closeConnect () {
-        $this->conn-close();
-    }
-
     public function get_rows () {
         $result = [];
         if ($this->conn) {
@@ -55,7 +55,8 @@ class Dream_DB {
                                     'id' => $row['id'], 
                                     'title' => $this->rollBackSanitize($row['title']), 
                                     'text' => $this->rollBackSanitize($row['text']), 
-                                    'deadline' => $this->rollBackSanitize($row['deadline'])
+                                    'deadline' => $this->rollBackSanitize($row['deadline']),
+                                    'status' =>  $this->rollBackSanitize($row['status'])
                                     )
                                 );
             }
@@ -93,6 +94,47 @@ class Dream_DB {
             $res_obj = $this->conn->query($query);
             
             $result = $this->conn->insert_id;
+        }
+        return $result;
+    }
+
+    public function update_row ($array = []) {
+        $result = '';
+        if ($this->conn && !empty($array)) {
+            $query_str = '';
+            $i = 0;
+            
+            foreach ($array as $k => $v) {
+                if ($k === 'id') {
+                    continue;
+                }
+                $query_str .= $k . " = " . "'" . $this->sanitizeStr($v) . "'";
+                if ((count($array) - 2) > $i) {
+                    $query_str .= ', ';
+                }
+                $i++;
+            }
+            
+            $query = "UPDATE tasks SET " . $query_str . " WHERE id = '" . $array['id'] . "'";
+            if ($this->conn->query($query)) {
+                $result = 'success';
+            }
+        }
+        return $result;
+    }
+
+    public function delete_row ($id = '') {
+        $result = '';
+        if (!empty($id)) {
+            $int_id = intval($id);
+             if ($int_id !== 0) {
+                $query = "DELETE FROM tasks WHERE id = " . $int_id;
+                if ($this->conn->query($query)) {
+                    $result = 'success';
+                }
+             } else {
+                 $result = 'Неверный ID!';
+             }
         }
         return $result;
     }
