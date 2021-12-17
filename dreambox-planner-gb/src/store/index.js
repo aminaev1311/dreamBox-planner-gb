@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { GET_URL } from "../misc/constants.js";
+import { GET_URL, DELETE_URL } from "../misc/constants.js";
 
 export default createStore({
   state: {
@@ -15,19 +15,24 @@ export default createStore({
         state.taskList.push({ title, text, deadline, status });
       }
     },
+    async deleteTask(state, payload) {
+      const index = state.taskList.findIndex((item) => item.id === payload);
+      const options = {
+        credentials: "include",
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: state.taskList[index].id }),
+      };
+      let res = await fetch(DELETE_URL, options).then((res) => res.json());
+      console.log(res);
+      const item = state.taskList.splice(index, 1);
+      console.log("item deleted: ", item);
+    },
   },
   getters: {
     getTasks: (state) => state.taskList,
   },
   actions: {
-    // fetchData({ commit }) {
-    //   return fetch(GET_URL)
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       commit("setTaskList", res);
-    //     });
-    // },
-
     async fetchData({ commit }) {
       let fetchedTasksObject = {};
       fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());

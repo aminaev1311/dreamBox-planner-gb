@@ -8,13 +8,13 @@
       >
         <font-awesome-icon :icon="['far', 'check-circle']" />
       </div>
-      <a class="task-title" v-on:click="openCard(task.id)">
+      <a class="task-title" @click="titleClicked(task.id)">
         {{ task.title }}
       </a>
     </div>
 
     <p class="task-date">
-      {{ task.deadline }}
+      {{ task.deadline ? task.deadline : "" }}
     </p>
   </div>
 </template>
@@ -44,12 +44,15 @@ export default {
       console.log(this.isChecked);
       this.isChecked = !this.isChecked;
     },
-    openCard(id) {
-      this.taskForView = this.getTasks.find((task) => {
-        return task.id === id;
-      });
-      const cardView = document.getElementById("cardView");
-      cardView.style.display = "block";
+    titleClicked() {
+      // this.taskForView = this.getTasks.find((task) => {
+      //   return task.id === id;
+      // });
+      // const cardView = document.getElementById("cardView");
+      // cardView.style.display = "block";
+      // this.$emit("taskChosen", id);
+      // this.$emit("taskChosen", id);
+      this.$emit("taskChosen");
     },
   },
 };

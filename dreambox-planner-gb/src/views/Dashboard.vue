@@ -21,11 +21,16 @@
               {{ task.deadline }}
             </p>
           </div> -->
-          <DashboardCard v-for="task in getTasks" :key="task.id" :task="task" />
+          <DashboardCard
+            v-for="task in getTasks"
+            :key="task.id"
+            :task="task"
+            @taskChosen="openCard(task.id)"
+          />
         </div>
       </div>
     </div>
-    <CardView :task="taskForView" id="cardView" />
+    <CardView :task="taskForView" id="cardView" @taskDeleted="deleteHandler" />
   </div>
 </template>
 
@@ -51,6 +56,10 @@ export default {
       });
       const cardView = document.getElementById("cardView");
       cardView.style.display = "block";
+    },
+    deleteHandler() {
+      const cardView = document.getElementById("cardView");
+      cardView.style.display = "none";
     },
   },
 };

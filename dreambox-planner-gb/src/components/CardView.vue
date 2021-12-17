@@ -6,7 +6,7 @@
         Done
       </button>
       <div>
-        <button class="card-button">
+        <button class="card-button" @click="deleteHandler(task.id)">
           <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
           Delete
         </button>
@@ -52,11 +52,14 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     task: Object,
   },
   methods: {
+    ...mapMutations(["deleteTask"]),
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -64,6 +67,11 @@ export default {
     parseDate(badDate) {
       const date = new Date(badDate);
       return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    },
+    deleteHandler(id) {
+      console.log(id);
+      this.deleteTask(id);
+      this.$emit("taskDeleted");
     },
   },
 };
