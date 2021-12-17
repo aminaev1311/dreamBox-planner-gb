@@ -4,6 +4,10 @@ Hosting:<br> http://dreambox.1gb.ru/<br>
 Miro:<br> https://miro.com/app/board/uXjVOfL0lbA=/<br>
 ZOOM chat ~12:оо meet, ~10:oo plan: <br>
 https://luxoft.zoom.us/my/anatoly.m
+Список примеров дизайнов на templatemonster.com<br>
+https://www.templatemonster.com/products/types/admin-templates/topic/information-security-templates/
+Конкретный пример дизайна:
+https://codervent.com/mons/rocker/demo/vertical/index.html
 
 # dreamBox-planner-gb
 to-do list for geekbrains project
