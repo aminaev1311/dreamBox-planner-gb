@@ -4,8 +4,8 @@ require_once '../core/classes/dream_db.php';
 
 $res_data = array('delete' => '', 'errors' => '');
 
-// $front_data = file_get_contents('php://input');
-$front_data = '{"id":"20"}';
+$front_data = file_get_contents('php://input');
+// $front_data = '{"id":"20"}';
 
 if (empty($front_data)) {
     $res_data['errors'] = 'Empty data!';

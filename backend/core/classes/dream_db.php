@@ -127,14 +127,14 @@ class Dream_DB {
         $result = '';
         if (!empty($id)) {
             $int_id = intval($id);
-             if ($int_id !== 0) {
+            if ($int_id !== 0) {
                 $query = "DELETE FROM tasks WHERE id = " . $int_id;
                 if ($this->conn->query($query)) {
                     $result = 'success';
                 }
-             } else {
+            } else {
                  $result = 'Неверный ID!';
-             }
+            }
         }
         return $result;
     }
