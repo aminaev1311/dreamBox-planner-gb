@@ -1,8 +1,29 @@
 <template>
   <nav class="nav">
-    <router-link to="/" class="nav-link" :class="{active: currentRouteName === 'Home'}">Tasks</router-link>
-    <router-link to="/about" class="nav-link" :class="{active: currentRouteName === 'About'}">Vision</router-link>
-    <router-link to="/dashboard" class="nav-link" :class="{active: currentRouteName === 'Dashboard'}">Дашборд</router-link>
+    <router-link
+      to="/"
+      class="nav-link"
+      :class="{ active: currentRouteName === 'Home' }"
+      >Tasks</router-link
+    >
+    <router-link
+      to="/about"
+      class="nav-link"
+      :class="{ active: currentRouteName === 'About' }"
+      >Vision</router-link
+    >
+    <router-link
+      to="/dashboard"
+      class="nav-link"
+      :class="{ active: currentRouteName === 'Dashboard' }"
+      >Dashboard</router-link
+    >
+    <router-link
+      to="/test"
+      class="nav-link"
+      :class="{ active: currentRouteName === 'Test' }"
+      >Test</router-link
+    >
   </nav>
 </template>
 
@@ -11,10 +32,10 @@ export default {
   name: "Nav",
   computed: {
     currentRouteName() {
-      return this.$route.name
-    }
-  }
-}
+      return this.$route.name;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
