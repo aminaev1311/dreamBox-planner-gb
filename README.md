@@ -1,5 +1,5 @@
 Figma: https://www.figma.com/file/9Y2nbGSknCF5LGmVAihwWb/dreamBox-planner-gb?node-id=1%3A2
-Hosting: http://dreambox.1gb.ru/\r\n
+Hosting: http://dreambox.1gb.ru/<br>
 Сравнение to-do приложений: https://docs.google.com/spreadsheets/d/1qIhc7yFYwF8QdcQ6JZUM5IH0UweSWBik4F5LLGlSKQs/edit?usp=sharing
 Miro: https://miro.com/app/board/uXjVOfL0lbA=/
 
