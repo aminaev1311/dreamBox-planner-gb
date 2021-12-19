@@ -18,7 +18,10 @@
     <div class="card-body">
       <form>
         <div class="form-control">
-          <input class="form-input full-width" :value="task.title" />
+          <input class="form-input full-width"
+                 id="title"
+                 :value="task.title"
+                 @change="updateHandler"/>
         </div>
 
         <div class="form-control">
@@ -28,16 +31,19 @@
             id="date"
             type="date"
             :value="parseDate(task.deadline)"
+            @change="updateHandler"
           />
         </div>
 
         <div class="form-control">
           <label class="form-label"> Category: </label>
-          <Multiselect v-model="value"
+          <Multiselect v-model="selectedCategory"
+                       id="category"
                        :options="getCategories"
                        label="name"
                        placeholder="Select category"
-                       class="form-input">
+                       class="form-input"
+                       @input="updateHandler($event)">
             <template v-slot:singlelabel="{ value }">
               <div class="multiselect-single-label">
                 <font-awesome-icon :icon="value.icon" class="icon" /> {{ value.name }}
@@ -52,7 +58,10 @@
 
         <div class="">
           <label class="form-label"> Описание: </label> <br />
-          <textarea class="form-input" cols="60" rows="5" :value="task.text">
+          <textarea class="form-input" cols="60" rows="5"
+                    id="text"
+                    :value="task.text"
+                    @change="updateHandler">
           </textarea>
         </div>
       </form>
@@ -71,24 +80,14 @@ export default {
   components: {Multiselect},
   data() {
     return {
-      value: null,
-      categoryList: [
-        {value: '1', name: 'Career', icon: 'chart-line'},
-        {value: '2', name: 'Finance', icon: 'money-bill-wave'},
-        {value: '3', name: 'Growth', icon: 'brain'},
-        {value: '4', name: 'Health', icon: 'heartbeat'},
-        {value: '5', name: 'Relations', icon: 'user-friends'},
-        {value: '6', name: 'Relax', icon: 'feather-alt'},
-        {value: '7', name: 'Spiritual', icon: 'yin-yang'},
-        {value: '8', name: 'Sports', icon: 'skiing'}
-      ]
+      selectedCategory: null
     }
   },
   computed: {
     ...mapGetters(["getCategories"])
   },
   methods: {
-    ...mapMutations(["deleteTask"]),
+    ...mapMutations(["deleteTask", "updateTask"]),
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -102,6 +101,24 @@ export default {
       this.deleteTask(id);
       this.$emit("taskDeleted");
     },
+    updateHandler(e) {
+      // Строчка ниже нужна потому что гребанный Vue криво написан!!!!!!!
+      // Поле категорий связано с моделью v-model, так вот получается, что событие change
+      // синхронное и отрабатывает раньше, что изменяется переменная модели selectedCategory
+      // как результат получаем предыдущее значение.
+      // Решение - использование костыля, когда при изменении в event сохраняется правильно значение
+      // https://github.com/vuejs/vue/issues/266
+      const category = typeof e === 'string' ? e : this.selectedCategory
+
+      const newTask = {
+        id: this.task.id,
+        title: document.getElementById('title').value,
+        text: document.getElementById('text').value,
+        deadline: document.getElementById('date').value,
+        category_id: category
+      }
+      this.updateTask(newTask)
+    }
   },
 };
 </script>

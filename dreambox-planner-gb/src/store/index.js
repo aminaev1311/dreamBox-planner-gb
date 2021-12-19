@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { GET_URL, DELETE_URL } from "../misc/constants.js";
+import { GET_URL, DELETE_URL, UPDATE_URL } from "../misc/constants.js";
 
 export default createStore({
   state: {
@@ -38,6 +38,17 @@ export default createStore({
       const item = state.taskList.splice(index, 1);
       console.log("item deleted: ", item);
     },
+    async updateTask(state, payload) {
+      const options = {
+        credentials: "include",
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+      let res = await fetch(UPDATE_URL, options).then((res) => res.json());
+      console.log(res)
+      // TODO: дописал обработку обновления содержимого store после обновления БД
+    }
   },
   getters: {
     getTasks: (state) => state.taskList,
