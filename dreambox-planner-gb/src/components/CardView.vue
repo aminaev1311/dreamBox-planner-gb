@@ -32,13 +32,30 @@
         </div>
 
         <div class="form-control">
-          <label class="form-label"> Раздел: </label>
-          <select class="form-input">
-            <option></option>
-            <option>Спринт 1</option>
-            <option>Спринт 2</option>
-            <option>Спринт 3</option>
-          </select>
+          <label class="form-label"> Category: </label>
+<!--          <select class="form-input">-->
+<!--            <option></option>-->
+<!--            <option><img src="../assets/career.svg" /> Спринт 1</option>-->
+<!--            <option>Спринт 2</option>-->
+<!--            <option>Спринт 3</option>-->
+<!--          </select>-->
+          <Multiselect v-model="value"
+                       :options="categoryList"
+                       label="name"
+                       placeholder="Select category"
+                       class="form-input">
+            <template v-slot:singlelabel="{ value }">
+              <div class="multiselect-single-label">
+<!--                <img class="icon" :src="value.icon"> {{ value.name }}-->
+                <font-awesome-icon :icon="value.icon" class="icon" /> {{ value.name }}
+              </div>
+            </template>
+
+            <template v-slot:option="{ option }">
+<!--               <img class="icon" :src="option.icon"> {{ option.name }}-->
+              <font-awesome-icon :icon="option.icon" class="icon" /> {{ option.name }}
+            </template>
+          </Multiselect>
         </div>
 
         <div class="">
@@ -53,10 +70,28 @@
 
 <script>
 import { mapMutations } from "vuex";
+import Multiselect from '@vueform/multiselect'
+
 
 export default {
   props: {
     task: Object,
+  },
+  components: {Multiselect},
+  data() {
+    return {
+      value: null,
+      categoryList: [
+        {value: '1', name: 'Career', icon: 'chart-line'},
+        {value: '2', name: 'Finance', icon: 'money-bill-wave'},
+        {value: '3', name: 'Growth', icon: 'brain'},
+        {value: '4', name: 'Health', icon: 'heartbeat'},
+        {value: '5', name: 'Relations', icon: 'user-friends'},
+        {value: '6', name: 'Relax', icon: 'feather-alt'},
+        {value: '7', name: 'Spiritual', icon: 'yin-yang'},
+        {value: '8', name: 'Sports', icon: 'skiing'}
+      ]
+    }
   },
   methods: {
     ...mapMutations(["deleteTask"]),
@@ -78,6 +113,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "~@vueform/multiselect/themes/default.css"
 .card
   display: none
   flex-basis: 1000px
@@ -150,4 +186,11 @@ export default {
 
 .column
   flex-direction: column
+
+.icon
+  font-weight: normal
+  font-size: 16px
+  line-height: 18px
+  color: #000000
+  margin-right: 8px
 </style>
