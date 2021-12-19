@@ -38,12 +38,12 @@
 
 <script>
 import DashboardCard from "@/components/DashboardCard";
-import DashboardCreateCard from "@/components/DashboardCreateCard";
+// import DashboardCreateCard from "@/components/DashboardCreateCard";
 import CardView from "@/components/CardView";
 import { mapGetters } from "vuex";
 export default {
   name: "Dashboard",
-  components: { CardView, DashboardCard, DashboardCreateCard },
+  components: { CardView, DashboardCard },
   data() {
     return {
       taskForView: {},
