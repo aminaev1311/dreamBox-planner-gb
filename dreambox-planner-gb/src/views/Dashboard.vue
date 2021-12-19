@@ -4,7 +4,7 @@
       <div class="section">
         <div class="section-header">
           <p class="section-title">Daily Plan</p>
-          <a class="section-plus">+</a>
+          <a class="section-plus" @click="openCard(false)">+</a>
         </div>
         <div class="section-body">
           <!-- <div class="task" v-for="task in getTasks" :key="task.id">
@@ -43,7 +43,12 @@ export default {
   components: { CardView, DashboardCard },
   data() {
     return {
-      taskForView: {},
+      taskForView: {
+        title: null,
+        text: "",
+        deadline: null,
+        status: "active"
+      },
     };
   },
   computed: {
@@ -51,9 +56,11 @@ export default {
   },
   methods: {
     openCard(id) {
-      this.taskForView = this.getTasks.find((task) => {
+      if (id) {
+        this.taskForView = this.getTasks.find((task) => {
         return task.id === id;
       });
+    } 
       const cardView = document.getElementById("cardView");
       cardView.style.display = "block";
     },

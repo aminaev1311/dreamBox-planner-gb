@@ -105,6 +105,7 @@ export default {
       const date = new Date(this.$props.task.deadline)
       this.currentTask.deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
     }
+    document.getElementById("taskBase").focus();
     
 
     // if(this.currentTask.deadline) {
