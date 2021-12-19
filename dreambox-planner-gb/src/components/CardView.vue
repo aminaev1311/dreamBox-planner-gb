@@ -80,7 +80,7 @@ export default {
 <style lang="sass" scoped>
 .card
   display: none
-  flex-basis: 1000px
+  // flex-basis: 1000px
   background: #FFFFFF
   border: 1px solid #E5E5E5
   text-align: start
