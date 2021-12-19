@@ -22,7 +22,10 @@
     <div class="card-body">
       <form>
         <div class="form-control">
-          <input class="form-input full-width" v-model="currentTask.title" />
+          <input class="form-input full-width"
+                 id="title"
+                 v-model="currentTask.title"
+                 @change="updateHandler"/>
         </div>
 
         <div class="form-control">
@@ -31,23 +34,38 @@
             class="form-input"
             id="date"
             type="date"
-            v-model="currentTask.deadline"
+            v-model="parseDate(currentTask.deadline)"
+            @change="updateHandler"
           />
         </div>
 
         <div class="form-control">
-          <label class="form-label"> Раздел: </label>
-          <select class="form-input">
-            <option></option>
-            <option>Спринт 1</option>
-            <option>Спринт 2</option>
-            <option>Спринт 3</option>
-          </select>
+          <label class="form-label"> Category: </label>
+          <Multiselect v-model="selectedCategory"
+                       id="category"
+                       :options="getCategories"
+                       label="name"
+                       placeholder="Select category"
+                       class="form-input"
+                       @input="updateHandler($event)">
+            <template v-slot:singlelabel="{ value }">
+              <div class="multiselect-single-label">
+                <font-awesome-icon :icon="value.icon" class="icon" /> {{ value.name }}
+              </div>
+            </template>
+
+            <template v-slot:option="{ option }">
+              <font-awesome-icon :icon="option.icon" class="icon" /> {{ option.name }}
+            </template>
+          </Multiselect>
         </div>
 
         <div class="">
           <label class="form-label"> Описание: </label> <br />
-          <textarea class="form-input" id="taskBase" cols="60" rows="5" v-model="currentTask.text">
+          <textarea class="form-input" id="taskBase" cols="60" rows="5"
+                    id="text"
+                    v-model="currentTask.text"
+                    @change="updateHandler">
           </textarea>
         </div>
         <button @click="sendData(currentTask)" class="card-button">
@@ -60,14 +78,17 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { {mapGetters, mapMutations, mapActions } from "vuex";
+import Multiselect from '@vueform/multiselect'
 
 export default {
   props: {
     task: Object,
   },
+  components: {Multiselect},
   data() {
     return {
+    selectedCategory: null,
     currentTask: {
       title: null,
       text: "",
@@ -76,10 +97,12 @@ export default {
     },
     }
   },
+  computed: {
+    ...mapGetters(["getCategories"])
+  },
   methods: {
-    ...mapMutations(["deleteTask"]),
+    ...mapMutations(["deleteTask", "updateTask"]),
     ...mapActions(["sendData"]),
-
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -111,6 +134,24 @@ export default {
     // if(this.currentTask.deadline) {
     //   this.currentTask.deadline = this.parseDate(this.currentTask.deadline)
     // }
+    updateHandler(e) {
+      // Строчка ниже нужна потому что гребанный Vue криво написан!!!!!!!
+      // Поле категорий связано с моделью v-model, так вот получается, что событие change
+      // синхронное и отрабатывает раньше, что изменяется переменная модели selectedCategory
+      // как результат получаем предыдущее значение.
+      // Решение - использование костыля, когда при изменении в event сохраняется правильно значение
+      // https://github.com/vuejs/vue/issues/266
+      const category = typeof e === 'string' ? e : this.selectedCategory
+
+      const newTask = {
+        id: this.task.id,
+        title: document.getElementById('title').value,
+        text: document.getElementById('text').value,
+        deadline: document.getElementById('date').value,
+        category_id: category
+      }
+      this.updateTask(newTask)
+    }
   },
   // mounted() {
   //   document.getElementById("taskBase").focus();
@@ -119,9 +160,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "~@vueform/multiselect/themes/default.css"
 .card
   display: none
-  flex-basis: 1000px
+  // flex-basis: 1000px
   background: #FFFFFF
   border: 1px solid #E5E5E5
   text-align: start
@@ -191,4 +233,11 @@ export default {
 
 .column
   flex-direction: column
+
+.icon
+  font-weight: normal
+  font-size: 16px
+  line-height: 18px
+  color: #000000
+  margin-right: 8px
 </style>

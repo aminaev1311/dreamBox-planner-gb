@@ -1,9 +1,20 @@
 import { createStore } from "vuex";
 import { GET_URL, DELETE_URL, POST_URL, UPDATE_URL } from "../misc/constants.js";
 
+
 export default createStore({
   state: {
     taskList: [],
+    categoryList: [
+      {value: '1', name: 'Career', icon: 'chart-line'},
+      {value: '2', name: 'Finance', icon: 'money-bill-wave'},
+      {value: '3', name: 'Growth', icon: 'brain'},
+      {value: '4', name: 'Health', icon: 'heartbeat'},
+      {value: '5', name: 'Relations', icon: 'user-friends'},
+      {value: '6', name: 'Relax', icon: 'feather-alt'},
+      {value: '7', name: 'Spiritual', icon: 'yin-yang'},
+      {value: '8', name: 'Sports', icon: 'skiing'}
+    ]
   },
   mutations: {
     setTasks(state, payload) {
@@ -28,9 +39,21 @@ export default createStore({
       const item = state.taskList.splice(index, 1);
       console.log("item deleted: ", item);
     },
+    async updateTask(state, payload) {
+      const options = {
+        credentials: "include",
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+      let res = await fetch(UPDATE_URL, options).then((res) => res.json());
+      console.log(res)
+      // TODO: дописал обработку обновления содержимого store после обновления БД
+    }
   },
   getters: {
     getTasks: (state) => state.taskList,
+    getCategories: (state) => state.categoryList
   },
   actions: {
     async fetchData({ commit }) {

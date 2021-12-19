@@ -1,12 +1,14 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard">
-      <div class="section">
-        <div class="section-header">
-          <p class="section-title">Daily Plan</p>
-          <a class="section-plus" @click="openCard(false)">+</a>
+      <div class="category">
+        <div class="category-header">
+          <p class="category-title">
+            <font-awesome-icon :icon="getCategories[0].icon" /> {{ getCategories[0].name }}
+          </p>
+          <a class="category-plus section-plus" @click="openCard(false)>+</a>
         </div>
-        <div class="section-body">
+        <div class="category-body">
           <!-- <div class="task" v-for="task in getTasks" :key="task.id">
             <div class="task-header">
               <a class="task-check">
@@ -27,6 +29,8 @@
             :task="task"
             @taskChosen="openCard(task.id)"
           />
+          <!-- <button>+</button>
+          <DashboardCreateCard /> -->
         </div>
       </div>
     </div>
@@ -36,6 +40,7 @@
 
 <script>
 import DashboardCard from "@/components/DashboardCard";
+// import DashboardCreateCard from "@/components/DashboardCreateCard";
 import CardView from "@/components/CardView";
 import { mapGetters } from "vuex";
 export default {
@@ -52,7 +57,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getTasks"]),
+    ...mapGetters(["getTasks", "getCategories"]),
   },
   methods: {
     openCard(id) {
@@ -75,13 +80,13 @@ export default {
 <style lang="sass" scoped>
 .dashboard
   display: flex
-  width: 100%
 
   &-container
     display: flex
     height: calc(100vh - 200px)
+    align-items: flex-start
 
-.section
+.category
   width: 200px
   margin: 0 16px
 
