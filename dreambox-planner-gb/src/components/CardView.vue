@@ -1,12 +1,16 @@
 <template>
   <div class="card" id="card">
     <div class="card-header">
-      <button class="card-button">
+      <button class="card-button" @click="setStatus('done')">
         <font-awesome-icon :icon="['far', 'check-circle']" />
-        Done
+        Task is done
+      </button>
+      <button class="card-button" @click="setStatus('canceled')">
+        <font-awesome-icon :icon="['far', 'times-circle']" />
+        Cancel task
       </button>
       <div>
-        <button class="card-button" @click="deleteHandler(task.id)">
+        <button class="card-button" @click="deleteHandler(currentTask.id)">
           <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
           Delete
         </button>
@@ -20,7 +24,7 @@
         <div class="form-control">
           <input class="form-input full-width"
                  id="title"
-                 :value="task.title"
+                 v-model="currentTask.title"
                  @change="updateHandler"/>
         </div>
 
@@ -30,7 +34,7 @@
             class="form-input"
             id="date"
             type="date"
-            :value="parseDate(task.deadline)"
+            v-model="parseDate(currentTask.deadline)"
             @change="updateHandler"
           />
         </div>
@@ -58,19 +62,23 @@
 
         <div class="">
           <label class="form-label"> Описание: </label> <br />
-          <textarea class="form-input" cols="60" rows="5"
+          <textarea class="form-input" id="taskBase" cols="60" rows="5"
                     id="text"
-                    :value="task.text"
+                    v-model="currentTask.text"
                     @change="updateHandler">
           </textarea>
         </div>
+        <button @click="sendData(currentTask)" class="card-button">
+          <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
+          SAVE
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import { {mapGetters, mapMutations, mapActions } from "vuex";
 import Multiselect from '@vueform/multiselect'
 
 export default {
@@ -80,7 +88,13 @@ export default {
   components: {Multiselect},
   data() {
     return {
-      selectedCategory: null
+    selectedCategory: null,
+    currentTask: {
+      title: null,
+      text: "",
+      deadline: null,
+      status: "active"
+    },
     }
   },
   computed: {
@@ -88,6 +102,7 @@ export default {
   },
   methods: {
     ...mapMutations(["deleteTask", "updateTask"]),
+    ...mapActions(["sendData"]),
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -101,6 +116,24 @@ export default {
       this.deleteTask(id);
       this.$emit("taskDeleted");
     },
+    setStatus(status) {
+      console.log('status changed ' + status )
+      this.currentTask.status = status
+    }
+  },
+  beforeUpdate() {
+    
+    this.currentTask = this.$props.task
+    if (this.currentTask.deadline) {
+      const date = new Date(this.$props.task.deadline)
+      this.currentTask.deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+    }
+    document.getElementById("taskBase").focus();
+    
+
+    // if(this.currentTask.deadline) {
+    //   this.currentTask.deadline = this.parseDate(this.currentTask.deadline)
+    // }
     updateHandler(e) {
       // Строчка ниже нужна потому что гребанный Vue криво написан!!!!!!!
       // Поле категорий связано с моделью v-model, так вот получается, что событие change
@@ -120,6 +153,9 @@ export default {
       this.updateTask(newTask)
     }
   },
+  // mounted() {
+  //   document.getElementById("taskBase").focus();
+  // },
 };
 </script>
 

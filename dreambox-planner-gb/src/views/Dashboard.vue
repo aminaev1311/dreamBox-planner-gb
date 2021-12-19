@@ -6,7 +6,7 @@
           <p class="category-title">
             <font-awesome-icon :icon="getCategories[0].icon" /> {{ getCategories[0].name }}
           </p>
-          <a class="category-plus">+</a>
+          <a class="category-plus section-plus" @click="openCard(false)>+</a>
         </div>
         <div class="category-body">
           <!-- <div class="task" v-for="task in getTasks" :key="task.id">
@@ -48,7 +48,12 @@ export default {
   components: { CardView, DashboardCard },
   data() {
     return {
-      taskForView: {},
+      taskForView: {
+        title: null,
+        text: "",
+        deadline: null,
+        status: "active"
+      },
     };
   },
   computed: {
@@ -56,9 +61,11 @@ export default {
   },
   methods: {
     openCard(id) {
-      this.taskForView = this.getTasks.find((task) => {
+      if (id) {
+        this.taskForView = this.getTasks.find((task) => {
         return task.id === id;
       });
+    } 
       const cardView = document.getElementById("cardView");
       cardView.style.display = "block";
     },
