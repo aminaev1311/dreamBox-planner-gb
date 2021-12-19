@@ -16,3 +16,28 @@ values('Мое первое дело', 'Описание из много бук�
 ('Моя мечта', 'Хочу совершить восхождение на Эверест!', '2022-04-11 08:00:00');
 
 ALTER TABLE tasks ADD status VARCHAR(50) COLLATE utf8_unicode_ci AFTER deadline;
+
+CREATE TABLE IF NOT EXISTS sections (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) COLLATE utf8_unicode_ci,
+  icon VARCHAR(255) COLLATE utf8_unicode_ci,
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO sections (name)
+VALUES('relations'),
+('career'),
+('growth'),
+('finance'),
+('spiritual'),
+('health'),
+('sports'),
+('relax');
+
+ALTER TABLE tasks ADD COLUMN section_id INT NULL AFTER status;
+
+ALTER TABLE tasks ADD CONSTRAINT fk_task_section
+FOREIGN KEY (section_id)
+REFERENCES sections (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
