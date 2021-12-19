@@ -1,14 +1,12 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard">
-      <div class="category">
-        <div class="category-header">
-          <p class="category-title">
-            <font-awesome-icon :icon="getCategories[0].icon" /> {{ getCategories[0].name }}
-          </p>
-          <a class="category-plus">+</a>
+      <div class="section">
+        <div class="section-header">
+          <p class="section-title">Daily Plan</p>
+          <a class="section-plus">+</a>
         </div>
-        <div class="category-body">
+        <div class="section-body">
           <!-- <div class="task" v-for="task in getTasks" :key="task.id">
             <div class="task-header">
               <a class="task-check">
@@ -52,7 +50,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getTasks", "getCategories"]),
+    ...mapGetters(["getTasks"]),
   },
   methods: {
     openCard(id) {
@@ -79,7 +77,7 @@ export default {
     height: calc(100vh - 200px)
     align-items: flex-start
 
-.category
+.section
   width: 200px
   margin: 0 16px
 
