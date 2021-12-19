@@ -4,6 +4,16 @@ import { GET_URL, DELETE_URL } from "../misc/constants.js";
 export default createStore({
   state: {
     taskList: [],
+    categoryList: [
+      {value: '1', name: 'Career', icon: 'chart-line'},
+      {value: '2', name: 'Finance', icon: 'money-bill-wave'},
+      {value: '3', name: 'Growth', icon: 'brain'},
+      {value: '4', name: 'Health', icon: 'heartbeat'},
+      {value: '5', name: 'Relations', icon: 'user-friends'},
+      {value: '6', name: 'Relax', icon: 'feather-alt'},
+      {value: '7', name: 'Spiritual', icon: 'yin-yang'},
+      {value: '8', name: 'Sports', icon: 'skiing'}
+    ]
   },
   mutations: {
     setTasks(state, payload) {
@@ -31,6 +41,7 @@ export default createStore({
   },
   getters: {
     getTasks: (state) => state.taskList,
+    getCategories: (state) => state.categoryList
   },
   actions: {
     async fetchData({ commit }) {

@@ -33,26 +33,18 @@
 
         <div class="form-control">
           <label class="form-label"> Category: </label>
-<!--          <select class="form-input">-->
-<!--            <option></option>-->
-<!--            <option><img src="../assets/career.svg" /> Спринт 1</option>-->
-<!--            <option>Спринт 2</option>-->
-<!--            <option>Спринт 3</option>-->
-<!--          </select>-->
           <Multiselect v-model="value"
-                       :options="categoryList"
+                       :options="getCategories"
                        label="name"
                        placeholder="Select category"
                        class="form-input">
             <template v-slot:singlelabel="{ value }">
               <div class="multiselect-single-label">
-<!--                <img class="icon" :src="value.icon"> {{ value.name }}-->
                 <font-awesome-icon :icon="value.icon" class="icon" /> {{ value.name }}
               </div>
             </template>
 
             <template v-slot:option="{ option }">
-<!--               <img class="icon" :src="option.icon"> {{ option.name }}-->
               <font-awesome-icon :icon="option.icon" class="icon" /> {{ option.name }}
             </template>
           </Multiselect>
@@ -69,9 +61,8 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import {mapGetters, mapMutations} from "vuex";
 import Multiselect from '@vueform/multiselect'
-
 
 export default {
   props: {
@@ -92,6 +83,9 @@ export default {
         {value: '8', name: 'Sports', icon: 'skiing'}
       ]
     }
+  },
+  computed: {
+    ...mapGetters(["getCategories"])
   },
   methods: {
     ...mapMutations(["deleteTask"]),
