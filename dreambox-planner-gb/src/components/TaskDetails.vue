@@ -1,9 +1,11 @@
 <template>
 <div class="card" id="card">
     <div class="card-header">
-      <div>{{ localTask.id }}</div>
-      <div class="card-button">
-        Status: {{ localTask.status }}
+      <div class="debug">
+        <div>ID: {{ localTask.id }}</div>
+        <div class="card-button">
+          Status: {{ localTask.status }}
+        </div>
       </div>
       <button class="card-button" @click="setStatus('done')">
         <font-awesome-icon :icon="['far', 'check-circle']" />
@@ -194,6 +196,9 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.debug
+    color: lightgray
+    font-size: x-small
 .card
   flex-basis: 1000px
   background: #FFFFFF
