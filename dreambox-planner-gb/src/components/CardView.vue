@@ -50,7 +50,7 @@
           <textarea class="form-input" id="taskBase" cols="60" rows="5" v-model="currentTask.text">
           </textarea>
         </div>
-        <button @click="sendData(currentTask)" class="card-button">
+        <button @click.prevent="sendLocalData(currentTask)" class="card-button">
           <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
           SAVE
         </button>
@@ -80,6 +80,10 @@ export default {
     ...mapMutations(["deleteTask"]),
     ...mapActions(["sendData"]),
 
+    sendLocalData(data) {
+      this.sendData(data)
+    },
+
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -98,13 +102,14 @@ export default {
       this.currentTask.status = status
     }
   },
-  beforeUpdate() {
-    
+  updated() {
+    console.log('CT2: ' + this.currentTask)
     this.currentTask = this.$props.task
     if (this.currentTask.deadline) {
       const date = new Date(this.$props.task.deadline)
       this.currentTask.deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
     }
+    
     
     
 
