@@ -1,16 +1,12 @@
 <template>
   <div class="card" id="card">
     <div class="card-header">
-      <button class="card-button" @click="setStatus('done')">
+      <button class="card-button">
         <font-awesome-icon :icon="['far', 'check-circle']" />
-        Task is done
-      </button>
-      <button class="card-button" @click="setStatus('canceled')">
-        <font-awesome-icon :icon="['far', 'times-circle']" />
-        Cancel task
+        Done
       </button>
       <div>
-        <button class="card-button" @click="deleteHandler(currentTask.id)">
+        <button class="card-button" @click="deleteHandler(task.id)">
           <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
           Delete
         </button>
@@ -22,7 +18,7 @@
     <div class="card-body">
       <form>
         <div class="form-control">
-          <input class="form-input full-width" v-model="currentTask.title" />
+          <input class="form-input full-width" :value="task.title" />
         </div>
 
         <div class="form-control">
@@ -31,7 +27,7 @@
             class="form-input"
             id="date"
             type="date"
-            v-model="currentTask.deadline"
+            :value="parseDate(task.deadline)"
           />
         </div>
 
@@ -47,43 +43,23 @@
 
         <div class="">
           <label class="form-label"> Описание: </label> <br />
-          <textarea class="form-input" id="taskBase" cols="60" rows="5" v-model="currentTask.text">
+          <textarea class="form-input" cols="60" rows="5" :value="task.text">
           </textarea>
         </div>
-        <button @click.prevent="sendLocalData(currentTask)" class="card-button">
-          <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
-          SAVE
-        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   props: {
     task: Object,
   },
-  data() {
-    return {
-    currentTask: {
-      title: null,
-      text: "",
-      deadline: null,
-      status: "active"
-    },
-    }
-  },
   methods: {
     ...mapMutations(["deleteTask"]),
-    ...mapActions(["sendData"]),
-
-    sendLocalData(data) {
-      this.sendData(data)
-    },
-
     closeCard() {
       const card = document.getElementsByClassName("card")[0];
       card.style.display = "none";
@@ -97,29 +73,7 @@ export default {
       this.deleteTask(id);
       this.$emit("taskDeleted");
     },
-    setStatus(status) {
-      console.log('status changed ' + status )
-      this.currentTask.status = status
-    }
   },
-  updated() {
-    console.log('CT2: ' + this.currentTask)
-    this.currentTask = this.$props.task
-    if (this.currentTask.deadline) {
-      const date = new Date(this.$props.task.deadline)
-      this.currentTask.deadline = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-    }
-    
-    
-    
-
-    // if(this.currentTask.deadline) {
-    //   this.currentTask.deadline = this.parseDate(this.currentTask.deadline)
-    // }
-  },
-  // mounted() {
-  //   document.getElementById("taskBase").focus();
-  // },
 };
 </script>
 
