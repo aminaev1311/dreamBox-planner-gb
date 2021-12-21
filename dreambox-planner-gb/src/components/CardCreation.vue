@@ -70,10 +70,7 @@ export default {
           .then((data) => {
             return data;
           });
-        // .catch((error) => {
-        //   console.log("Error occured: ", error.message);
-        // });
-        if (serverMsg) {
+          if (serverMsg) {
           //only if the server return a message, i.e. success, add to store
           this.addTask(this.task);
           this.$emit("taskAdded");
