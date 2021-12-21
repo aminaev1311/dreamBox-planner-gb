@@ -8,15 +8,14 @@
     <Footer />
   </div>
 
-<!--  <div id="nav">-->
-<!--    <router-link to="/">Tasks</router-link> |-->
-<!--    <router-link to="/about">Vision</router-link>-->
-<!--  </div>-->
+  <!--  <div id="nav">-->
+  <!--    <router-link to="/">Tasks</router-link> |-->
+  <!--    <router-link to="/about">Vision</router-link>-->
+  <!--  </div>-->
 </template>
 
 <script>
-
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import Nav from "@/components/Nav";
@@ -32,11 +31,11 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions(['fetchData'])
+    ...mapActions(["fetchData"]),
   },
-  mounted () {
-    this.fetchData()
-  }
+  mounted() {
+    this.fetchData();
+  },
 };
 </script>
 

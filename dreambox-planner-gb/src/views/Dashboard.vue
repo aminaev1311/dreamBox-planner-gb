@@ -27,6 +27,8 @@
             :task="task"
             @taskChosen="openCard(task.id)"
           />
+          <!-- <button>+</button>
+          <DashboardCreateCard /> -->
         </div>
       </div>
     </div>
@@ -36,6 +38,7 @@
 
 <script>
 import DashboardCard from "@/components/DashboardCard";
+// import DashboardCreateCard from "@/components/DashboardCreateCard";
 import CardView from "@/components/CardView";
 import { mapGetters } from "vuex";
 export default {
@@ -68,11 +71,11 @@ export default {
 <style lang="sass" scoped>
 .dashboard
   display: flex
-  width: 100%
 
   &-container
     display: flex
     height: calc(100vh - 200px)
+    align-items: flex-start
 
 .section
   width: 200px
