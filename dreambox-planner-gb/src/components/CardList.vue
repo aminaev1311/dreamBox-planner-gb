@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="greetings" v-if="!cardIsShown">
-      <UdemiCourses @addUdemiTask="createUdemiTask"/>
+      <UdemiCourses @addUdemiTask="createUdemiTask" />
     </div>
     <div v-if="cardIsShown">
       <TaskDetails
@@ -70,7 +70,7 @@ export default {
     },
     createUdemiTask(payload) {
       this.currentTask = payload;
-      console.log(this.currentTask)
+      console.log(this.currentTask);
       this.cardIsShown = true;
     },
   },
@@ -80,11 +80,11 @@ export default {
 <style lang="sass" scoped>
 .dashboard
   display: flex
-  width: 100%
 
   &-container
     display: flex
     height: calc(100vh - 200px)
+    max-width: 1200px
 
 .section
   width: 200px

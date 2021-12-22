@@ -25,18 +25,18 @@
     </div>
     <div class="card-body">
       <form ref="taskForm">
-        <div class="form-control">
+        <div class="form-div">
           <input
-            class="form-input full-width"
+            class="form-input full-width form-control"
             name="title"
             v-model="localTask.title"
           />
         </div>
 
-        <div class="form-control">
-          <label class="form-label" for="date"> Due on: </label>
+        <div class="form-div">
+          <label class="form-label col-sm-2" for="date"> Due on: </label>
           <input
-            class="form-input"
+            class="form-input col-sm-4"
             id="date"
             type="date"
             name="deadline"
@@ -44,9 +44,9 @@
           />
         </div>
 
-        <div class="form-control">
-          <label class="form-label"> Category: </label>
-          <select class="form-input" name="category">
+        <div class="form-div">
+          <label class="form-label col-sm-2"> Category: </label>
+          <select class="form-input col-sm-4" name="category">
             <option></option>
             <option>Career</option>
             <option>Health</option>
@@ -54,7 +54,7 @@
           </select>
         </div>
 
-        <div class="">
+        <div class="form-div">
           <label class="form-label"> Description: </label> <br />
           <textarea
             class="form-input"
@@ -191,7 +191,7 @@ export default {
 .form
   width: 100%
 
-  &-control
+  &-div
     display: flex
     margin-bottom: 18px
     align-items: center
@@ -199,7 +199,7 @@ export default {
   &-label
     flex-basis: 200px
     text-align: start
-    padding-left: 18px
+    // padding-left: 18px
 
   &-input
     background: #FFFFFF
