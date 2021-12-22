@@ -1,11 +1,9 @@
 <template>
-<div class="card" id="card">
+  <div class="card" id="card">
     <div class="card-header">
       <div class="debug">
         <div>ID: {{ localTask.id }}</div>
-        <div class="card-button">
-          Status: {{ localTask.status }}
-        </div>
+        <div class="card-button">Status: {{ localTask.status }}</div>
       </div>
       <button class="card-button" @click="setStatus('done')">
         <font-awesome-icon :icon="['far', 'check-circle']" />
@@ -26,9 +24,13 @@
       </div>
     </div>
     <div class="card-body">
-      <form>
+      <form ref="taskForm">
         <div class="form-control">
-          <input class="form-input full-width" v-model="localTask.title" />
+          <input
+            class="form-input full-width"
+            name="title"
+            v-model="localTask.title"
+          />
         </div>
 
         <div class="form-control">
@@ -37,26 +39,34 @@
             class="form-input"
             id="date"
             type="date"
+            name="deadline"
             v-model="localTask.deadline"
           />
         </div>
 
         <div class="form-control">
-          <label class="form-label"> Раздел: </label>
-          <select class="form-input">
+          <label class="form-label"> Category: </label>
+          <select class="form-input" name="category">
             <option></option>
-            <option>Спринт 1</option>
-            <option>Спринт 2</option>
-            <option>Спринт 3</option>
+            <option>Career</option>
+            <option>Health</option>
+            <option>Sports</option>
           </select>
         </div>
 
         <div class="">
-          <label class="form-label"> Описание: </label> <br />
-          <textarea class="form-input" id="taskBase" cols="60" rows="5" v-model="localTask.text">
+          <label class="form-label"> Description: </label> <br />
+          <textarea
+            class="form-input"
+            id="taskBase"
+            cols="60"
+            rows="5"
+            name="text"
+            v-model="localTask.text"
+          >
           </textarea>
         </div>
-        <div @click="clickHandler(localTask)" class="card-button">
+        <div @click="submitHandler" class="card-button">
           <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
           Submit
         </div>
@@ -64,28 +74,16 @@
       </form>
     </div>
   </div>
-
-  <!-- <div>
-    <div class="taskCard">
-      <div>
-        <input v-model="localTask.title" type="text">
-        <input v-model="localTask.text" type="text">
-        <input v-model="localTask.deadline" type="text">
-        <input v-model="localTask.status" type="text">
-      </div>
-      <div @click="clickHandler(localTask)">Submit</div>
-    </div>
-  </div> -->
 </template>
 
 <script>
-import { mapMutations } from "vuex"
-import { POST_URL } from '../misc/constants';
+import { mapActions } from "vuex";
 
 export default {
   props: {
-      task: Object,
-    },
+    task: Object,
+    id: String,
+  },
   data() {
     return {
       localTask: {
@@ -93,106 +91,53 @@ export default {
         title: null,
         text: "",
         deadline: null,
-        status: ""
-      }
-    }
+        status: "",
+      },
+    };
   },
   methods: {
-    ...mapMutations(["deleteTask"]),
+    ...mapActions(["deleteData", "updateData", "addData"]),
 
     closeCard() {
-      this.$emit('closeCard')
+      this.$emit("closeCard");
     },
 
-    async sendData(formData) {
-      let data = formData;
-      if (!data.id) {
-      if (!data.title) {
-        data.title = data.text.split(" ").slice(0, 3).join(" ");
-      }
-      data = JSON.stringify(data);
-      console.log(data);
-      const fetchOptions = {
-        credentials: "include",
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: "json=" + data,
-      };
-      try {
-        let serverMsg = await fetch(POST_URL, fetchOptions)
-          .then((response) => {
-            let serverRes = response.json();
-            return serverRes;
-          })
-          .then((data) => {
-            return data;
-          });
-          if (serverMsg) {
-          //only if the server return a message, i.e. success, add to store
-          this.addTask(this.task);
-          this.$emit("taskAdded");
-        }
-      } catch (e) {
-        console.log(e.message);
-      }
-      this.$emit('closeCard')
+    updateTask() {
+      console.log(this.$refs.taskForm);
+      this.updateData(this.localTask);
+    },
+
+    submitHandler() {
+      console.log("localtask", this.localTask);
+      if (!this.localTask.id) {
+        console.log("...creating task");
+        console.log(this.localTask);
+        // this.$emit("createTask", this.localTask);
+        this.addData(this.localTask);
       } else {
-      data = JSON.stringify(data);
-      console.log(data);
-      const fetchOptions = {
-        credentials: "include",
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: "json=" + data,
-      };
-      try {
-        let serverMsg = await fetch(POST_URL, fetchOptions)
-          .then((response) => {
-            let serverRes = response.json();
-            return serverRes;
-          })
-          .then((data) => {
-            return data;
-          });
-          if (serverMsg) {
-          //only if the server return a message, i.e. success, add to store
-          this.addTask(this.task);
-          this.$emit("taskAdded");
-        }
-      } catch (e) {
-        console.log(e.message);
+        this.updateTask();
       }
-      this.$emit('closeCard')
-      }
+      this.closeCard();
     },
 
-    setStatus(status) {    
-      this.localTask.status = status
-      
+    setStatus(status) {
+      this.localTask.status = status;
     },
 
-    clickHandler(payload) {
-      console.log(payload)
-      this.sendData(payload)
-      
-    },
     deleteHandler(id) {
       console.log(id);
-      this.deleteTask(id);
-      this.$emit("taskDeleted");
+      this.deleteData(id);
+      this.closeCard();
     },
   },
-  computed: {
-    
-  },
+  computed: {},
   mounted() {
-    this.localTask.id = this.task.id
-    this.localTask.title = this.task.title
-    this.localTask.text = this.task.text
-    this.localTask.deadline = this.task.deadline
-    this.localTask.status = this.task.status
-  }
-}
+    this.localTask = this.task;
+  },
+  updated() {
+    this.localTask = this.task;
+  },
+};
 </script>
 
 <style lang="sass" scoped>

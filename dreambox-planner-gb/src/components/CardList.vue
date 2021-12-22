@@ -4,14 +4,15 @@
       <div class="section">
         <div class="section-header">
           <p class="section-title">Daily Plan</p>
-          <a class="section-title" @click="createTask()">Add New</a>
+          <button class="section-title" @click="createTask">New Task</button>
         </div>
         <div class="section-body">
-            <CardForList
-              v-for="task in getTasks" :key="task" 
-              :task="task"
-              @click="showCard(task.id)"
-            />
+          <CardForList
+            v-for="task in getTasks"
+            :key="task"
+            :task="task"
+            @click="showCard(task.id)"
+          />
         </div>
       </div>
     </div>
@@ -19,15 +20,20 @@
       <h2>What's up for today?</h2>
     </div>
     <div v-if="cardIsShown">
-      <TaskDetails @closeCard="closeCard" v-for="id in currentTask" :key="id" :task="currentTask.id"/>
+      <TaskDetails
+        @closeCard="closeCard"
+        @createTask="createTask"
+        :id="currentTask.id"
+        :task="currentTask"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import TaskDetails from "./TaskDetails.vue"
-import CardForList from "./CardForList.vue"
+import { mapGetters, mapActions } from "vuex";
+import TaskDetails from "./TaskDetails.vue";
+import CardForList from "./CardForList.vue";
 
 export default {
   name: "CardList",
@@ -39,31 +45,30 @@ export default {
         title: null,
         text: "",
         deadline: null,
-        status: "active"
+        status: "active",
       },
       cardIsShown: false,
-      currentTask: {
-        id: {}
-      },
-    }
-  },
-  methods: {
-    showCard(id) {
-      this.currentTask.id = this.getTasks.find(task => task.id == id)
-      this.cardIsShown = true
-    },
-    closeCard() {
-      this.cardIsShown = false
-    },
-    createTask() {
-      this.currentTask.id = this.newTask
-      this.cardIsShown = true
-    }
+      currentTask: null,
+    };
   },
   computed: {
     ...mapGetters(["getTasks"]),
   },
-}
+  methods: {
+    ...mapActions(["addData"]),
+    showCard(id) {
+      this.currentTask = this.getTasks.find((task) => task.id == id);
+      this.cardIsShown = true;
+    },
+    closeCard() {
+      this.cardIsShown = false;
+    },
+    createTask() {
+      this.currentTask = this.newTask;
+      this.cardIsShown = true;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -122,7 +127,7 @@ export default {
 //     text-align: start
 //     margin-bottom: 10px
 
-//     
+//
 
 //   &-check
 //     font-size: 16px
