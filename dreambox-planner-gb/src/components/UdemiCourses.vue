@@ -48,7 +48,7 @@ export default {
       let udemiTask = {
         id: null,
         title: "Check the " + course.title + " course on Udemi",
-        text: "Course headline is " + course.headline,
+        text: "Course headline is " + course.headline + ". URL: " + course.url,
         deadline: null,
         status: "active"
       }
