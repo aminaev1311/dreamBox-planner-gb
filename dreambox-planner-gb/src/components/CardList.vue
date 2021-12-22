@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="greetings" v-if="!cardIsShown">
-      <h2>What's up for today?</h2>
+      <UdemiCourses @addUdemiTask="createUdemiTask"/>
     </div>
     <div v-if="cardIsShown">
       <TaskDetails
@@ -34,10 +34,11 @@
 import { mapGetters, mapActions } from "vuex";
 import TaskDetails from "./TaskDetails.vue";
 import CardForList from "./CardForList.vue";
+import UdemiCourses from "./UdemiCourses.vue";
 
 export default {
   name: "CardList",
-  components: { CardForList, TaskDetails },
+  components: { CardForList, TaskDetails, UdemiCourses },
   data() {
     return {
       newTask: {
@@ -65,6 +66,11 @@ export default {
     },
     createTask() {
       this.currentTask = this.newTask;
+      this.cardIsShown = true;
+    },
+    createUdemiTask(payload) {
+      this.currentTask = payload;
+      console.log(this.currentTask)
       this.cardIsShown = true;
     },
   },
