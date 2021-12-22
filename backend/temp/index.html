@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound</title>
+</head>
+<body>
+<div>
+    <form action="/temp/index.html" method="post">
+        <div id="start">Start</div>
+        <div id="stop">Stop</div>
+        <button type="submit">Send</button>
+    </form>
+</div>
+<script>
+navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+        const mediaRecorder = new MediaRecorder(stream);
+        let voice = [];
+        document.querySelector('#start').addEventListener('click', function(){
+            mediaRecorder.start();
+        });
+
+        mediaRecorder.addEventListener("dataavailable",function(event) {
+            voice.push(event.data);
+        });
+
+        document.querySelector('#stop').addEventListener('click', function(){
+            mediaRecorder.stop();
+        });
+
+        mediaRecorder.addEventListener("stop", function() {
+            const voiceBlob = new Blob(voice, {
+                type: 'audio/wav'
+            })
+        });
+    });
+</script>
+</body>
+</html>
