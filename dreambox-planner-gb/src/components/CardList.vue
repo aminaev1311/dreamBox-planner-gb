@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="greetings" v-if="!cardIsShown">
-      <UdemiCourses @addUdemiTask="createUdemiTask(payload)"/>
+      <UdemiCourses @addUdemiTask="createUdemiTask"/>
     </div>
     <div v-if="cardIsShown">
       <TaskDetails
@@ -70,6 +70,7 @@ export default {
     },
     createUdemiTask(payload) {
       this.currentTask = payload;
+      console.log(this.currentTask)
       this.cardIsShown = true;
     },
   },
