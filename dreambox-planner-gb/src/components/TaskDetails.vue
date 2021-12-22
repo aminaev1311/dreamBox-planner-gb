@@ -66,11 +66,13 @@
           >
           </textarea>
         </div>
-        <div @click="submitHandler" class="card-button">
-          <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
-          Submit
+        <div class="card-bottom_buttons">
+          <div @click="submitHandler" class="card-button">
+            <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
+            Submit
+          </div>
+          <div @click="closeCard" class="card-button">Close</div>
         </div>
-        <div @click="closeCard" class="card-button">Close</div>
       </form>
     </div>
   </div>
@@ -110,11 +112,10 @@ export default {
     submitHandler() {
       console.log("localtask", this.localTask);
       if (!this.localTask.id) {
-        console.log("...creating task");
-        console.log(this.localTask);
-        // this.$emit("createTask", this.localTask);
+        //if the tasks is new, the id is null. And addData is called to add task.
         this.addData(this.localTask);
       } else {
+        //if the task exists, update task is being called to update the task
         this.updateTask();
       }
       this.closeCard();
@@ -169,6 +170,9 @@ export default {
 
     &:hover
       box-shadow: 0 0 5px #E5E5E5
+  &-bottom_buttons
+    display: flex
+    justify-content: space-between
 
 .icon
   &-delete
@@ -199,7 +203,7 @@ export default {
 
   &-input
     background: #FFFFFF
-    border: 1px solid #FFFFFF
+    border: 1px solid #E5E5E5
     border-radius: 5px
     padding: 6px 16px
     font-weight: normal
