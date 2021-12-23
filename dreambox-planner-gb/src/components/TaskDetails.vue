@@ -21,6 +21,7 @@
           @click="setStatus('canceled')"
         >
           <font-awesome-icon :icon="['far', 'times-circle']" />
+          <i class="fas fa-ban"></i>
           Cancel task
         </button>
       </div>
@@ -81,6 +82,7 @@
         <div class="card-bottom_buttons">
           <div @click="submitHandler" class="btn btn-primary btn-sm">
             <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
+            <i class="fas fa-paper-plane"></i>
             Submit
           </div>
           <div @click="closeCard" class="btn btn-secondary btn-sm">
