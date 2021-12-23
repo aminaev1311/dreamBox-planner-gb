@@ -1,26 +1,38 @@
 <template>
   <div class="card" id="card">
-    <div class="card-header">
+    <div class="card-header align-items-center">
       <div class="debug">
         <div>ID: {{ localTask.id }}</div>
         <div class="card-button">Status: {{ localTask.status }}</div>
       </div>
-      <button class="card-button" @click="setStatus('done')">
-        <font-awesome-icon :icon="['far', 'check-circle']" />
-        Mark as done
-      </button>
-      <button class="card-button" @click="setStatus('canceled')">
-        <font-awesome-icon :icon="['far', 'times-circle']" />
-        Cancel task
-      </button>
       <div>
-        <button class="card-button" @click="deleteHandler(localTask.id)">
+        <button
+          class="btn btn-outline-success btn-sm"
+          @click="setStatus('done')"
+        >
+          <font-awesome-icon :icon="['far', 'check-circle']" />
+          Mark as done
+        </button>
+      </div>
+
+      <div>
+        <button
+          class="btn btn-outline-warning btn-sm"
+          @click="setStatus('canceled')"
+        >
+          <font-awesome-icon :icon="['far', 'times-circle']" />
+          Cancel task
+        </button>
+      </div>
+
+      <div>
+        <button
+          class="btn btn-outline-danger btn-sm"
+          @click="deleteHandler(localTask.id)"
+        >
           <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
           Delete
         </button>
-        <a>
-          <font-awesome-icon :icon="['fas', 'share']" class="icon-close" />
-        </a>
       </div>
     </div>
     <div class="card-body">
@@ -67,11 +79,14 @@
           </textarea>
         </div>
         <div class="card-bottom_buttons">
-          <div @click="submitHandler" class="card-button">
+          <div @click="submitHandler" class="btn btn-primary btn-sm">
             <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
             Submit
           </div>
-          <div @click="closeCard" class="card-button">Close</div>
+          <div @click="closeCard" class="btn btn-secondary btn-sm">
+            <i class="fas fa-times"></i>
+            Close
+          </div>
         </div>
       </form>
     </div>
