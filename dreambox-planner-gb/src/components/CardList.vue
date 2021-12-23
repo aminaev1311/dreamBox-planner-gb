@@ -3,8 +3,10 @@
     <div class="dashboard">
       <div class="section">
         <div class="section-header">
-          <p class="section-title">Daily Plan</p>
-          <button class="section-title" @click="createTask">New Task</button>
+          <div class="section-title">Daily Plan</div>
+          <button class="btn" @click="createTask">
+            <i class="fas fa-plus-circle"></i>
+          </button>
         </div>
         <div class="section-body">
           <CardForList
@@ -17,7 +19,7 @@
       </div>
     </div>
     <div class="greetings" v-if="!cardIsShown">
-      <h2>What's up for today?</h2>
+      <UdemiCourses @addUdemiTask="createUdemiTask" />
     </div>
     <div v-if="cardIsShown">
       <TaskDetails
@@ -34,10 +36,11 @@
 import { mapGetters, mapActions } from "vuex";
 import TaskDetails from "./TaskDetails.vue";
 import CardForList from "./CardForList.vue";
+import UdemiCourses from "./UdemiCourses.vue";
 
 export default {
   name: "CardList",
-  components: { CardForList, TaskDetails },
+  components: { CardForList, TaskDetails, UdemiCourses },
   data() {
     return {
       newTask: {
@@ -67,6 +70,11 @@ export default {
       this.currentTask = this.newTask;
       this.cardIsShown = true;
     },
+    createUdemiTask(payload) {
+      this.currentTask = payload;
+      console.log(this.currentTask);
+      this.cardIsShown = true;
+    },
   },
 };
 </script>
@@ -74,11 +82,11 @@ export default {
 <style lang="sass" scoped>
 .dashboard
   display: flex
-  width: 100%
 
   &-container
     display: flex
     height: calc(100vh - 200px)
+    max-width: 1200px
 
 .section
   width: 200px
@@ -93,6 +101,7 @@ export default {
     color: #000000
     margin-top: 10px
     margin-bottom: 5px
+    align-items: center
 
   &-plus
     font-weight: normal
@@ -108,7 +117,8 @@ export default {
     height: calc(100% - 21px)
     padding: 6px
 
-
+i.fa-plus-circle
+  color: #b3b3b3
 // .task
 //   margin-bottom: 10px
 //   background-color: white

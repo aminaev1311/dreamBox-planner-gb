@@ -1,14 +1,12 @@
 <template>
   <div class="task">
     <div class="task-header">
-      <div
-        class="task-check"
-      >
+      <div class="task-check">
         <font-awesome-icon :icon="['far', 'check-circle']" />
       </div>
-      <a class="task-title">
+      <div class="task-title">
         {{ task.title }}
-      </a>
+      </div>
     </div>
 
     <p class="task-date">
@@ -18,7 +16,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     task: {
@@ -28,8 +25,7 @@ export default {
   name: "CardForList",
   components: {},
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
@@ -44,6 +40,9 @@ export default {
   background-color: white
   border-radius: 4px
   padding: 4px
+  transition: 0.5s
+  &:hover
+    border: 1px solid grey
 
   &-header
     display: flex
@@ -56,9 +55,6 @@ export default {
     color: #000000
     text-align: start
     margin-bottom: 10px
-
-    &:hover
-      text-decoration: underline
 
   &-check
     font-size: 16px

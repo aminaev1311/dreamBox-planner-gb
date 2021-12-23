@@ -1,6 +1,5 @@
 <template>
   <h1>Kate</h1>
-  
 </template>
 
 <script>

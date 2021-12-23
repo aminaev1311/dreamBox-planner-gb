@@ -1,42 +1,55 @@
 <template>
   <div class="card" id="card">
-    <div class="card-header">
+    <div class="card-header align-items-center">
       <div class="debug">
         <div>ID: {{ localTask.id }}</div>
         <div class="card-button">Status: {{ localTask.status }}</div>
       </div>
-      <button class="card-button" @click="setStatus('done')">
-        <font-awesome-icon :icon="['far', 'check-circle']" />
-        Mark as done
-      </button>
-      <button class="card-button" @click="setStatus('canceled')">
-        <font-awesome-icon :icon="['far', 'times-circle']" />
-        Cancel task
-      </button>
       <div>
-        <button class="card-button" @click="deleteHandler(localTask.id)">
+        <button
+          class="btn btn-outline-success btn-sm"
+          @click="setStatus('done')"
+        >
+          <font-awesome-icon :icon="['far', 'check-circle']" />
+          Mark as done
+        </button>
+      </div>
+
+      <div>
+        <button
+          class="btn btn-outline-warning btn-sm"
+          @click="setStatus('canceled')"
+        >
+          <font-awesome-icon :icon="['far', 'times-circle']" />
+          <i class="fas fa-ban"></i>
+          Cancel task
+        </button>
+      </div>
+
+      <div>
+        <button
+          class="btn btn-outline-danger btn-sm"
+          @click="deleteHandler(localTask.id)"
+        >
           <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
           Delete
         </button>
-        <a>
-          <font-awesome-icon :icon="['fas', 'share']" class="icon-close" />
-        </a>
       </div>
     </div>
     <div class="card-body">
       <form ref="taskForm">
-        <div class="form-control">
+        <div class="form-div">
           <input
-            class="form-input full-width"
+            class="form-input full-width form-control"
             name="title"
             v-model="localTask.title"
           />
         </div>
 
-        <div class="form-control">
-          <label class="form-label" for="date"> Due on: </label>
+        <div class="form-div">
+          <label class="form-label col-sm-2" for="date"> Due on: </label>
           <input
-            class="form-input"
+            class="form-input col-sm-4"
             id="date"
             type="date"
             name="deadline"
@@ -44,9 +57,9 @@
           />
         </div>
 
-        <div class="form-control">
-          <label class="form-label"> Category: </label>
-          <select class="form-input" name="category">
+        <div class="form-div">
+          <label class="form-label col-sm-2"> Category: </label>
+          <select class="form-input col-sm-4" name="category">
             <option></option>
             <option>Career</option>
             <option>Health</option>
@@ -54,7 +67,7 @@
           </select>
         </div>
 
-        <div class="">
+        <div class="form-div">
           <label class="form-label"> Description: </label> <br />
           <textarea
             class="form-input"
@@ -67,11 +80,15 @@
           </textarea>
         </div>
         <div class="card-bottom_buttons">
-          <div @click="submitHandler" class="card-button">
+          <div @click="submitHandler" class="btn btn-primary btn-sm">
             <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
+            <i class="fas fa-paper-plane"></i>
             Submit
           </div>
-          <div @click="closeCard" class="card-button">Close</div>
+          <div @click="closeCard" class="btn btn-secondary btn-sm">
+            <i class="fas fa-times"></i>
+            Close
+          </div>
         </div>
       </form>
     </div>
@@ -150,6 +167,7 @@ export default {
   background: #FFFFFF
   border: 1px solid #E5E5E5
   text-align: start
+  margin-top: 60px
 
   &-header
     padding: 5px 25px
@@ -191,7 +209,7 @@ export default {
 .form
   width: 100%
 
-  &-control
+  &-div
     display: flex
     margin-bottom: 18px
     align-items: center
@@ -199,7 +217,7 @@ export default {
   &-label
     flex-basis: 200px
     text-align: start
-    padding-left: 18px
+    // padding-left: 18px
 
   &-input
     background: #FFFFFF
