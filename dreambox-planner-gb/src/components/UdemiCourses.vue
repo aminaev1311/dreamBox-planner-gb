@@ -1,7 +1,7 @@
 <template>
   <div class="coursesList-heading">
-    <h2>Want to learn something new?</h2>
-    <h3>Choose from these trending courses</h3>
+    <h5>Want to learn something new?</h5>
+    <h6>Choose from these trending courses</h6>
   </div>
   <div class="coursesList">
     <div class="courseCard" v-for="course in udemiCourses" :key="course">
@@ -86,7 +86,7 @@ a
 
 .courseCard
   margin: 8px
-  width: 360px
+  width: 270px
   background: #E5E5E5
   padding: 8px
   border-radius: 16px

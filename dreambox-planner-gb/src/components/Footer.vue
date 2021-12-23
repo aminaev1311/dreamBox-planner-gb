@@ -14,7 +14,7 @@ export default {};
   display: flex
   justify-content: space-between
   align-items: center
-  position: absolute
+  // position: absolute
   bottom: 0
   width: 100%
   height: 40px   /* Height of the footer */

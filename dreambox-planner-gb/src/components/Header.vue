@@ -3,7 +3,7 @@
     <img src="@/assets/logo.svg" alt="logo" />
     <div class="search-form">
       <form>
-        <input class="search-input">
+        <input class="search-input" placeholder="search tasks" />
       </form>
     </div>
   </header>
@@ -26,4 +26,6 @@ export default {};
     box-sizing: border-box
     border-radius: 16px
     padding: 10px 15px
+    font-size: 12px
+    line-height: 14px
 </style>

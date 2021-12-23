@@ -167,6 +167,7 @@ export default {
   background: #FFFFFF
   border: 1px solid #E5E5E5
   text-align: start
+  margin-top: 60px
 
   &-header
     padding: 5px 25px

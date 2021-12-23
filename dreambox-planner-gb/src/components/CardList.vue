@@ -3,8 +3,10 @@
     <div class="dashboard">
       <div class="section">
         <div class="section-header">
-          <p class="section-title">Daily Plan</p>
-          <button class="section-title" @click="createTask">New Task</button>
+          <div class="section-title">Daily Plan</div>
+          <button class="btn" @click="createTask">
+            <i class="fas fa-plus-circle"></i>
+          </button>
         </div>
         <div class="section-body">
           <CardForList
@@ -99,6 +101,7 @@ export default {
     color: #000000
     margin-top: 10px
     margin-bottom: 5px
+    align-items: center
 
   &-plus
     font-weight: normal
@@ -114,7 +117,8 @@ export default {
     height: calc(100% - 21px)
     padding: 6px
 
-
+i.fa-plus-circle
+  color: #b3b3b3
 // .task
 //   margin-bottom: 10px
 //   background-color: white
