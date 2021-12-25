@@ -4,19 +4,23 @@ import {
   DELETE_URL,
   POST_URL,
   UPDATE_URL,
+  GOALS,
 } from "../misc/constants.js";
 
 export default createStore({
   state: {
     taskList: [],
+    goals: [],
   },
   mutations: {
     setTasks(state, payload) {
       state.taskList = payload;
     },
+    setGoals(state, payload) {
+      state.goals = payload;
+    },
     addTask(state, { title, text, deadline, status }) {
       if (text) {
-        // const id = state.taskList.length + 1;
         state.taskList.push({ title, text, deadline, status });
       }
     },
@@ -33,6 +37,7 @@ export default createStore({
   },
   getters: {
     getTasks: (state) => state.taskList,
+    getGoals: (state) => state.goals,
   },
   actions: {
     async fetchData({ commit }) {
@@ -43,6 +48,9 @@ export default createStore({
       }
       console.log(fetchedTasks);
       commit("setTasks", fetchedTasks);
+    },
+    async fetchGoals({ commit }) {
+      commit("setGoals", GOALS);
     },
     async addData({ commit }, task) {
       try {

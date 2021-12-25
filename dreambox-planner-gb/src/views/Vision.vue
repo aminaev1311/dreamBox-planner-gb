@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "About",
+  name: "Vision",
   components: {},
 };
 </script>
