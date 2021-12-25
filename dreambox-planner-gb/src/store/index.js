@@ -24,6 +24,11 @@ export default createStore({
         state.taskList.push({ title, text, deadline, status });
       }
     },
+    addGoalMutation(state, { title, text, deadline }) {
+      if (text) {
+        state.goals.push({ title, text, deadline });
+      }
+    },
     deleteTask(state, id) {
       const index = state.taskList.findIndex((item) => item.id === id);
       const item = state.taskList.splice(index, 1);
@@ -72,6 +77,17 @@ export default createStore({
           throw new Error(errors);
         }
         commit("addTask", task);
+      } catch (e) {
+        console.error(e.message);
+      }
+    },
+    async addGoal({ commit }, goal) {
+      try {
+        console.log(goal);
+        if (!goal.title) {
+          goal.title = goal.text.split(" ").slice(0, 3).join(" ");
+        }
+        commit("addGoalMutation", goal);
       } catch (e) {
         console.error(e.message);
       }
