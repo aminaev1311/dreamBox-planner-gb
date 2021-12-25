@@ -3,8 +3,10 @@
   <h4 v-for="(goal, idx) in getGoals" :key="goal" class="card">
     {{ idx + 1 }}: {{ goal.title }}, {{ goal.text }}, {{ goal.deadline }}
   </h4>
-  <button class="btn btn-secondary">+</button>
-  <form @submit="submitHandler" class="card">
+  <button class="btn btn-secondary" @click="showGoalForm = !showGoalForm">
+    +
+  </button>
+  <form @submit="submitHandler" class="card" v-if="showGoalForm">
     <h4 class="card-header">Create new SMART goal</h4>
     <div class="card-body">
       <div class="form-group row">
@@ -68,6 +70,7 @@ export default {
       title: "",
       text: "",
       deadline: null,
+      showGoalForm: false,
     };
   },
   computed: {
