@@ -1,18 +1,41 @@
 <template>
-  <h1>Test your ideas here!</h1>
-  <h3>
-    add your components below in the Test Component in View folder. Don't forget
-    to add them to components object below.
-  </h3>
-  <Kate />
+  <div class="viewsList">
+    <CardListVision v-for="goal in goals" :key="goal" :goal="goal"/>
+  </div>
 </template>
 
 <script>
-import Kate from "@/components/Kate.vue";
+import { mapGetters, mapActions } from "vuex";
+
+import CardListVision from "../components/CardListVision.vue"
+
 export default {
   name: "Test",
-  components: { Kate },
+  components: { CardListVision },
+  data() {
+    return {
+      goals: []
+    }
+  },
+  methods: {
+    ...mapActions(["fetchGoals"]),
+  },
+  computed: {
+    ...mapGetters(["getGoals"]),
+  },
+  beforeMount() {
+    this.fetchGoals()
+  },
+  mounted() {
+    
+    this.goals = this.getGoals
+  }
+  
+
 };
 </script>
 
-<style></style>
+<style lang="sass" scoped>
+  .viewsList
+    display: flex
+</style>

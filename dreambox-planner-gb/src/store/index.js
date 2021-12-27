@@ -5,12 +5,14 @@ import {
   POST_URL,
   UPDATE_URL,
   GOALS,
+  TASK_WITH_GOALS,
 } from "../misc/constants.js";
 
 export default createStore({
   state: {
     taskList: [],
     goals: [],
+    tasksWithGoals: []
   },
   mutations: {
     setTasks(state, payload) {
@@ -18,6 +20,9 @@ export default createStore({
     },
     setGoals(state, payload) {
       state.goals = payload;
+    },
+    setTasksWithGoals(state, payload) {
+      state.tasksWithGoals = payload;
     },
     addTask(state, { title, text, deadline, status }) {
       if (text) {
@@ -43,6 +48,7 @@ export default createStore({
   getters: {
     getTasks: (state) => state.taskList,
     getGoals: (state) => state.goals,
+    getTasksWithGoals: (state) => state.tasksWithGoals
   },
   actions: {
     async fetchData({ commit }) {
@@ -56,6 +62,9 @@ export default createStore({
     },
     async fetchGoals({ commit }) {
       commit("setGoals", GOALS);
+    },
+    async fetchTasksWithGoals({ commit }) {
+      commit("setTasksWithGoals", TASK_WITH_GOALS);
     },
     async addData({ commit }, task) {
       try {
