@@ -17,5 +17,35 @@ const GOALS = [
     deadline: "2022-10-31",
   },
 ];
+const TASK_WITH_GOALS = [
+  {
+    title: "weight 1",
+    text: "weight 1",
+    deadline: null,
+    status: "active",
+    goal: "weight"
+  },
+  {
+    title: "weight 2",
+    text: "weight 2",
+    deadline: null,
+    status: "active",
+    goal: "weight"
+  },
+  {
+    title: "start-up1",
+    text: "start-up1",
+    deadline: null,
+    status: "active",
+    goal: "start-up"
+  },
+  {
+    title: "start-up2",
+    text: "start-up2",
+    deadline: null,
+    status: "active",
+    goal: "start-up"
+  },
 
-export { GET_URL, POST_URL, DELETE_URL, UPDATE_URL, UDEMI_GET_COURSES, GOALS };
+]
+export { GET_URL, POST_URL, DELETE_URL, UPDATE_URL, UDEMI_GET_COURSES, GOALS, TASK_WITH_GOALS };

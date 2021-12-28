@@ -8,7 +8,7 @@
 import * as d3 from 'd3';
 
 export default {
-  name: "Dashboard",
+  name: "Wheel",
   components: {  },
   data() {
     return {

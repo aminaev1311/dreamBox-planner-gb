@@ -60,7 +60,10 @@
         <div class="form-div">
           <label class="form-label col-sm-2"> Category: </label>
           <select class="form-input col-sm-4" name="category">
-            <option v-for="goal in getGoals" :key="goal.title">{{ goal.title }}</option>
+            <option></option>
+            <option>Career</option>
+            <option>Health</option>
+            <option>Sports</option>
           </select>
         </div>
 
@@ -93,7 +96,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   props: {
@@ -145,9 +148,7 @@ export default {
       this.closeCard();
     },
   },
-  computed: {
-    ...mapGetters(["getGoals"])
-  },
+  computed: {},
   mounted() {
     this.localTask = this.task;
   },
@@ -167,9 +168,6 @@ export default {
   border: 1px solid #E5E5E5
   text-align: start
   margin-top: 60px
-  position: absolute
-  top: 20%
-  left: 20%
 
   &-header
     padding: 5px 25px
