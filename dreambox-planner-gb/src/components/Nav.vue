@@ -13,10 +13,10 @@
       >Vision</router-link
     >
     <router-link
-      to="/dashboard"
+      to="/wheel"
       class="nav-link"
-      :class="{ active: currentRouteName === 'Dashboard' }"
-      >Dashboard</router-link
+      :class="{ active: currentRouteName === 'Wheel' }"
+      >Wheel</router-link
     >
     <router-link
       to="/test"
