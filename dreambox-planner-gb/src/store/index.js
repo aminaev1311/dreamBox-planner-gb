@@ -21,7 +21,7 @@ export default createStore({
       {id: 5, name: 'Relations', color: '#9900FF', num: 5},
       {id: 6, name: 'Relax', color: '#3366CC', num: 6},
       {id: 7, name: 'Spiritual', color: '#00CCCC', num: 7},
-      {id: 7, name: 'Sports', color: '#339933', num: 8}
+      {id: 8, name: 'Sports', color: '#339933', num: 8}
     ],
   },
   mutations: {

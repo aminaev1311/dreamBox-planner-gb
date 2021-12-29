@@ -80,7 +80,7 @@ export default {
         g.append('text')
             .attr("x", x_cur)
             .attr("y", y_cur)
-            .text(this.categories[i].name)
+            .text(`${this.categories[i].name}: ${this.categories[i].num}`)
       }
     }
   },
