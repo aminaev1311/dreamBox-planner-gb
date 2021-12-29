@@ -12,7 +12,17 @@ export default createStore({
   state: {
     taskList: [],
     goals: [],
-    tasksWithGoals: []
+    tasksWithGoals: [],
+    categories: [
+      {id: 1, name: 'Career', color: '#CCCC00', num: 1},
+      {id: 2, name: 'Finance', color: '#CC6600', num: 2},
+      {id: 3, name: 'Growth', color: '#FF3333', num: 3},
+      {id: 4, name: 'Health', color: '#CC6699', num: 4},
+      {id: 5, name: 'Relations', color: '#9900FF', num: 5},
+      {id: 6, name: 'Relax', color: '#3366CC', num: 6},
+      {id: 7, name: 'Spiritual', color: '#00CCCC', num: 7},
+      {id: 7, name: 'Sports', color: '#339933', num: 8}
+    ],
   },
   mutations: {
     setTasks(state, payload) {
@@ -44,11 +54,17 @@ export default createStore({
       state.taskList[index] = task;
       console.log("item updated: ", task);
     },
+    updateCategory(state, category) {
+      const index = state.categories.findIndex((item) => item.id === category.id)
+      state.categories[index] = category
+      console.log("category updated: ", category)
+    }
   },
   getters: {
     getTasks: (state) => state.taskList,
     getGoals: (state) => state.goals,
-    getTasksWithGoals: (state) => state.tasksWithGoals
+    getTasksWithGoals: (state) => state.tasksWithGoals,
+    getCategories: (state) => state.categories
   },
   actions: {
     async fetchData({ commit }) {
@@ -137,6 +153,11 @@ export default createStore({
         console.error(e);
       }
     },
+    async updateCategory({ commit }, category) {
+      // Здесь добавить логику работы с API
+
+      commit("updateCategory", category)
+    }
   },
   modules: {},
 });
