@@ -19,6 +19,7 @@ const GOALS = [
 ];
 const TASK_WITH_GOALS = [
   {
+    id: 1,
     title: "weight 1",
     text: "weight 1",
     deadline: null,
@@ -26,6 +27,7 @@ const TASK_WITH_GOALS = [
     goal: "weight"
   },
   {
+    id: 2,
     title: "weight 2",
     text: "weight 2",
     deadline: null,
@@ -33,6 +35,7 @@ const TASK_WITH_GOALS = [
     goal: "weight"
   },
   {
+    id: 3,
     title: "start-up1",
     text: "start-up1",
     deadline: null,
@@ -40,6 +43,7 @@ const TASK_WITH_GOALS = [
     goal: "start-up"
   },
   {
+    id: 4,
     title: "start-up2",
     text: "start-up2",
     deadline: null,
