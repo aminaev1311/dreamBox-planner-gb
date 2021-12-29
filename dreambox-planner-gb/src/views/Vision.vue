@@ -3,7 +3,7 @@
   <h4 v-for="(goal, idx) in getGoals" :key="goal" class="card">
     {{ idx + 1 }}: {{ goal.title }}, {{ goal.text }}, {{ goal.deadline }}
   </h4>
-  <button class="btn btn-secondary" @click="showGoalForm = !showGoalForm">
+  <button class="btn btn-secondary btn-lg" @click="showGoalForm = !showGoalForm">
     +
   </button>
   <form @submit="submitHandler" class="card" v-if="showGoalForm">
@@ -25,6 +25,16 @@
           Goal should be Specific Measurable Achievalbe Relevant Time-bound
         </div>
       </div>
+      
+      <div class="form-group row">
+        <label for="deadline" class="col-sm-2 col-form-label">Category</label>
+        <div class="col-sm-3">
+          <select class="form-control form-control-sm" name="category" v-model="category"> 
+            <option :key="category.id" v-for="category of getCategories">{{ category.name }}</option>
+          </select>
+        </div>
+      </div>
+
       <div class="form-group row">
         <label for="deadline" class="col-sm-2 col-form-label">Deadline</label>
         <div class="col-sm-3">
@@ -70,21 +80,22 @@ export default {
       title: "",
       text: "",
       deadline: null,
+      category: null,
       showGoalForm: false,
     };
   },
   computed: {
-    ...mapGetters(["getGoals"]),
+    ...mapGetters(["getGoals", "getCategories"]),
   },
   methods: {
     ...mapActions(["fetchGoals", "addGoal"]),
-    // "addGoal"
     submitHandler(e) {
       e.preventDefault();
       const goal = {
         title: this.title,
         text: this.text,
         deadline: this.deadline,
+        category: this.category
       };
       console.log(goal);
       this.addGoal(goal);

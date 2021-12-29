@@ -39,9 +39,9 @@ export default createStore({
         state.taskList.push({ title, text, deadline, status });
       }
     },
-    addGoalMutation(state, { title, text, deadline }) {
+    addGoalMutation(state, { title, text, deadline, category }) {
       if (text) {
-        state.goals.push({ title, text, deadline });
+        state.goals.push({ title, text, deadline, category });
       }
     },
     deleteTask(state, id) {
@@ -108,7 +108,6 @@ export default createStore({
     },
     async addGoal({ commit }, goal) {
       try {
-        console.log(goal);
         if (!goal.title) {
           goal.title = goal.text.split(" ").slice(0, 3).join(" ");
         }
