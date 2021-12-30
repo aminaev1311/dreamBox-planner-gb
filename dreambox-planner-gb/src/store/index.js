@@ -5,14 +5,47 @@ import {
   POST_URL,
   UPDATE_URL,
   GOALS,
-  TASK_WITH_GOALS,
+  // TASK_WITH_GOALS,
 } from "../misc/constants.js";
 
 export default createStore({
   state: {
     taskList: [],
     goals: [],
-    tasksWithGoals: [],
+    tasksWithGoals: [
+      {
+        id: 1,
+        title: "weight 1",
+        text: "weight 1",
+        deadline: null,
+        status: "active",
+        goal: "weight"
+      },
+      {
+        id: 2,
+        title: "weight 2",
+        text: "weight 2",
+        deadline: null,
+        status: "active",
+        goal: "weight"
+      },
+      {
+        id: 3,
+        title: "start-up1",
+        text: "start-up1",
+        deadline: null,
+        status: "active",
+        goal: "start-up"
+      },
+      {
+        id: 4,
+        title: "start-up2",
+        text: "start-up2",
+        deadline: null,
+        status: "active",
+        goal: "start-up"
+      }
+    ],
     categories: [
       {id: 1, name: 'Career', color: '#CCCC00', num: 1},
       {id: 2, name: 'Finance', color: '#CC6600', num: 2},
@@ -34,9 +67,9 @@ export default createStore({
     setTasksWithGoals(state, payload) {
       state.tasksWithGoals = payload;
     },
-    addTask(state, { title, text, deadline, status }) {
+    addTask(state, {goal, title, text, deadline, status }) {
       if (text) {
-        state.taskList.push({ title, text, deadline, status });
+        state.tasksWithGoals.push({goal, title, text, deadline, status });
       }
     },
     addGoalMutation(state, { title, text, deadline, category }) {
@@ -45,13 +78,13 @@ export default createStore({
       }
     },
     deleteTask(state, id) {
-      const index = state.taskList.findIndex((item) => item.id === id);
-      const item = state.taskList.splice(index, 1);
+      const index = state.tasksWithGoals.findIndex((item) => item.id === id);
+      const item = state.tasksWithGoals.splice(index, 1);
       console.log("item deleted: ", item);
     },
     updateTask(state, task) {
-      const index = state.taskList.findIndex((item) => item.id === task.id);
-      state.taskList[index] = task;
+      const index = state.tasksWithGoals.findIndex((item) => item.id === task.id);
+      state.tasksWithGoals[index] = task;
       console.log("item updated: ", task);
     },
     updateCategory(state, category) {
@@ -79,9 +112,9 @@ export default createStore({
     async fetchGoals({ commit }) {
       commit("setGoals", GOALS);
     },
-    async fetchTasksWithGoals({ commit }) {
-      commit("setTasksWithGoals", TASK_WITH_GOALS);
-    },
+    // async fetchTasksWithGoals({ commit }) {
+    //   commit("setTasksWithGoals", TASK_WITH_GOALS);
+    // },
     async addData({ commit }, task) {
       try {
         console.log(task);
@@ -101,6 +134,18 @@ export default createStore({
         if (errors) {
           throw new Error(errors);
         }
+        commit("addTask", task);
+      } catch (e) {
+        console.error(e.message);
+      }
+    },
+    async addVuexData({ commit }, task) {
+      try {
+        console.log(task);
+        if (!task.title) {
+          task.title = task.text.split(" ").slice(0, 3).join(" ");
+        }
+        // if (!data.id) {
         commit("addTask", task);
       } catch (e) {
         console.error(e.message);
@@ -134,6 +179,13 @@ export default createStore({
         console.error(e);
       }
     },
+    async deleteVuexData({ commit }, id) {
+      try {
+        commit("deleteTask", id);
+      } catch (e) {
+        console.error(e);
+      }
+    },
     async updateData({ commit }, task) {
       try {
         const options = {
@@ -147,6 +199,13 @@ export default createStore({
         if (errors) {
           throw new Error(errors);
         }
+        commit("updateTask", task);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async updateVuexData({ commit }, task) {
+      try {
         commit("updateTask", task);
       } catch (e) {
         console.error(e);

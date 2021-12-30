@@ -4,7 +4,7 @@
       <div class="section">
         <div class="section-header">
           <div class="section-title">{{ goal.title }}</div>
-          <button class="btn" @click="createTask">
+          <button class="btn" @click="createTask(goal.title)">
             <i class="fas fa-plus-circle"></i>
           </button>
         </div>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div v-if="cardIsShown">
-      <TaskDetails
+      <VisionTaskDetails
         @closeCard="closeCard"
         @createTask="createTask"
         :id="currentTask.id"
@@ -30,14 +30,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import TaskDetails from "./TaskDetails.vue";
+import { mapGetters } from "vuex";
+import VisionTaskDetails from "./VisionTaskDetails.vue";
 import CardForList from "./CardForList.vue";
 
 
 export default {
   name: "CardListVision",
-  components: { CardForList, TaskDetails },
+  components: { CardForList, VisionTaskDetails },
   props: {
     goal: Object
   },
@@ -45,6 +45,7 @@ export default {
     return {
       newTask: {
         id: null,
+        goal: "",
         title: null,
         text: "",
         deadline: null,
@@ -64,16 +65,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchTasksWithGoals"]),
+    // ...mapActions(["fetchTasksWithGoals"]),
     showCard(id) {
-      this.currentTask = this.getTasks.find((task) => task.id == id);
+      this.currentTask = this.getTasksWithGoals.find((task) => task.id == id);
       this.cardIsShown = true;
     },
     closeCard() {
       this.cardIsShown = false;
     },
-    createTask() {
+    createTask(goal) {
       this.currentTask = this.newTask;
+      this.newTask.goal = goal
       this.cardIsShown = true;
     },
     createUdemiTask(payload) {
@@ -83,7 +85,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchTasksWithGoals()
+    // this.fetchTasksWithGoals()
   }
 };
 </script>
