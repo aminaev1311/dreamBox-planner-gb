@@ -21,13 +21,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getCategories']),
+    ...mapGetters(['getCategories', 'getGoals']),
     sections()  { return this.categories.length  },                   // Количество секторов у круга (количество категорий)
     max_radius() { return this.circles * this.radius + 0.5 * this.radius },    // Максимальное удаление текста от центра
     angle() { return Math.PI * 2 / this.sections }                  // угловой размер каждого сектора на круге
   },
   methods: {
     ...mapActions(["updateCategory"]),
+    getGoalsInCategory(id) {
+      return this.getGoals.filter(goal => {
+        return goal.category_id === id
+      })
+    },
     clickHandler(event) {
       const x = event.layerX - this.width / 2;
       const y = event.layerY - this.height / 2;
@@ -56,7 +61,13 @@ export default {
         const numGoalsBySection = this.categories[i].num
 
         for (let k = 0; k < this.circles; k++) {
-          const color = k < numGoalsBySection ? this.categories[i].color : 'white'
+          // const color = k < numGoalsBySection ? this.categories[i].color : 'white'
+          let color = 'white'
+          if (k < numGoalsBySection) {
+            color = this.categories[i].color
+          } else if (k < (numGoalsBySection + this.getGoalsInCategory(this.categories[i].id).length)) {
+            color = d3.color(this.categories[i].color).darker(2)
+          }
 
           g.append("path")
               .attr("d", d3.arc()
