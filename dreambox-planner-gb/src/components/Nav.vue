@@ -10,7 +10,7 @@
       to="/vision"
       class="nav-link"
       :class="{ active: currentRouteName === 'Vision' }"
-      >Vision</router-link
+      >Goals</router-link
     >
     <router-link
       to="/wheel"
@@ -23,6 +23,12 @@
       class="nav-link"
       :class="{ active: currentRouteName === 'Test' }"
       >Test</router-link
+    >
+    <router-link
+        to="/new-goals"
+        class="nav-link"
+        :class="{ active: currentRouteName === 'NewGoals' }"
+    >New Goals</router-link
     >
   </nav>
 </template>

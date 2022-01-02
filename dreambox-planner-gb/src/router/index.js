@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import Vision from "@/views/Vision.vue";
 import Wheel from "@/views/Wheel";
 import Test from "@/views/Test";
+import NewGoals from "@/views/NewGoals";
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: "/test",
     name: "Test",
     component: Test,
+  },
+  {
+    path: "/new-goals",
+    name: "NewGoals",
+    component: NewGoals,
   },
 ];
 
