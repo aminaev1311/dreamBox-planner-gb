@@ -62,14 +62,20 @@
         </div>
       </form>
     </div>
+    <div class="card-footer footer" v-if="!newGoal">
+      <div class="footer-title">Tasks:</div>
+      <Task v-for="task in tasks" :key="task.id" :task="task"/>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import Task from "@/components/new-goals/Task";
 
 export default {
   name: 'GoalForm',
+  components: {Task},
   props: {
     goal_id: Number,
     category_id: Number
@@ -83,7 +89,8 @@ export default {
         text: "",
         deadline: null,
         category_id: null
-      }
+      },
+      tasks: []
     }
   },
   methods: {
@@ -101,7 +108,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getCategories", "getGoals"])
+    ...mapGetters(["getCategories", "getGoals", "getTasksWithGoals"])
   },
   mounted() {
     this.newGoal = !this.goal_id
@@ -109,6 +116,9 @@ export default {
       this.localGoal.category_id = this.category_id
     } else {
       this.localGoal = this.getGoals.find(goal => goal.id === this.goal_id)
+      this.tasks = this.getTasksWithGoals.filter((task) => {
+        return task.goal_id === this.goal_id
+      })
     }
 
   }
@@ -197,4 +207,11 @@ export default {
 
 .column
   flex-direction: column
+
+.footer
+  background: white
+
+  &-title
+    font-size: 14px
+    font-weight: bold
 </style>
