@@ -26,35 +26,35 @@ export default createStore({
     tasksWithGoals: [
       {
         id: 1,
-        title: "weight 1",
+        title: "Записать в фитнес",
         text: "weight 1",
-        deadline: null,
+        deadline: "10.01.2022",
         status: "active",
-        goal: "weight"
+        goal_id: 7
       },
       {
         id: 2,
-        title: "weight 2",
+        title: "Сходить в фитнес хотя бы 3 раза за год",
         text: "weight 2",
         deadline: null,
         status: "active",
-        goal: "weight"
+        goal_id: 7
       },
       {
         id: 3,
-        title: "start-up1",
+        title: "Зпустить свой стартап",
         text: "start-up1",
-        deadline: null,
+        deadline: "10.01.2022",
         status: "active",
-        goal: "start-up"
+        goal_id: 2
       },
       {
         id: 4,
-        title: "start-up2",
+        title: "Зарабоать первый миллион",
         text: "start-up2",
         deadline: null,
         status: "active",
-        goal: "start-up"
+        goal_id: 2
       }
     ],
     categories: [
