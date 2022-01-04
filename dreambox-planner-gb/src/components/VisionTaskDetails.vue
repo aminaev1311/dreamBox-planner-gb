@@ -60,6 +60,7 @@
         <div class="form-div">
           <label class="form-label col-sm-2"> Category: </label>
           <select class="form-input col-sm-4" name="category">
+            <option>{{ task.goal }}</option>
             <option v-for="goal in getGoals" :key="goal.title">{{ goal.title }}</option>
           </select>
         </div>
@@ -112,7 +113,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["deleteData", "updateData", "addData"]),
+    ...mapActions(["deleteVuexData", "updateVuexData", "addVuexData"]),
 
     closeCard() {
       this.$emit("closeCard");
@@ -127,10 +128,10 @@ export default {
       console.log("localtask", this.localTask);
       if (!this.localTask.id) {
         //if the tasks is new, the id is null. And addData is called to add task.
-        this.addData(this.localTask);
+        this.addVuexData(this.localTask);
       } else {
         //if the task exists, update task is being called to update the task
-        this.updateTask();
+        this.updateVuexData(this.localTask);
       }
       this.closeCard();
     },
@@ -141,7 +142,7 @@ export default {
 
     deleteHandler(id) {
       console.log(id);
-      this.deleteData(id);
+      this.deleteVuexData(id);
       this.closeCard();
     },
   },
