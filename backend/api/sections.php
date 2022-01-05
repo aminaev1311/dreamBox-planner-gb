@@ -5,8 +5,8 @@ require_once '../core/classes/dream_db.php';
 $dr_db = new Dream_DB();
 
 $res = $dr_db->get_rows(
-    'tasks',
-    array('id', 'title', 'text', 'deadline', 'status', 'section_id')
+    'sections',
+    array('id', 'name', 'icon')
 );
 
 header("Access-Control-Allow-Origin: *");

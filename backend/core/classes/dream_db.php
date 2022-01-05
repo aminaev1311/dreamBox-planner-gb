@@ -45,31 +45,27 @@ class Dream_DB {
         }
     }
 
-    public function get_rows () {
+    public function get_rows ($table = 'tasks', $fields = []) {
         $result = [];
+        $fields_str = '';
+        if (!empty($fields)) {
+            $fields_str = implode(', ', $fields);
+        } else {
+            return $result;
+        }
+
         if ($this->conn) {
-            $query = 'SELECT id, title, text, deadline, status FROM tasks LIMIT ' . $this->limit;
+            $res_arr = [];
+            $query = 'SELECT ' . $fields_str . ' FROM ' . $table . ' ORDER BY id ASC LIMIT ' . $this->limit;
             $fetch = $this->conn->query($query, MYSQLI_USE_RESULT);
             while ($row = $fetch->fetch_assoc()) {
-                array_push($result, array(
-                                    'id' => $row['id'], 
-                                    'title' => $this->rollBackSanitize($row['title']), 
-                                    'text' => $this->rollBackSanitize($row['text']), 
-                                    'deadline' => $this->rollBackSanitize($row['deadline']),
-                                    'status' =>  $this->rollBackSanitize($row['status'])
-                                    )
-                                );
-            }
-        }
-        if (!empty($result)) {
-            function cmp ($a, $b) {
-                if ($a['id'] == $b['id']) {
-                    return 0;
+                foreach ($fields as $val) {
+                    $res_arr[$val] = $this->rollBackSanitize($row[$val]);
                 }
-                return ($a['id'] < $b['id']) ? -1 : 1;
+                array_push($result, $res_arr);
             }
-            usort($result, 'cmp');
         }
+
         return $result;
     }
 

@@ -21,7 +21,8 @@ if (empty($front_data)) {
                 'title' => $json->title,
                 'text'  => $json->text,
                 'deadline' => $json->deadline,
-                'status' => $json->status
+                'status' => $json->status,
+                'section_id' => $json->section_id
             ];
             /* DATETIME YYYY-MM-DD hh:mm:ss */
 
