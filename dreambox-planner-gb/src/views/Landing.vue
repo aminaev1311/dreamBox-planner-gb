@@ -27,7 +27,7 @@
             <div class="col-lg-6 d-flex flex-column justify-content-center py-5 h500">
                 <h1 class="title-heading text-primary mb-5">DREAMBOX PLANNER</h1>
                 <p class="text-secondary title-text mb-5">For everyone who wants to change his life, but does not know where to start. We will help to make your life bright and eventful!</p>
-                <button class="btn btn-lg btn-primary btn-signup">Sign Up Now</button>
+                <button class="btn btn-lg btn-primary btn-signup" @click="$emit('login')">Sign Up Now</button>
                 <p class="text-muted mb-5 tal">and start changing your life</p>
             </div>
             <div class="col-lg-6 d-flex justify-content-center h500">

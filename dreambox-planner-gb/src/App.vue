@@ -1,6 +1,6 @@
 <template>
   <div v-if="!login">
-    <Landing @login="login = !login"/>
+    <Landing @login="loginHandler"/>
   </div>
 
   <div class="container" v-if="login">
@@ -41,12 +41,15 @@ export default {
   },
   methods: {
     ...mapActions(["fetchData"]),
+    loginHandler() {
+      this.login = !this.login
+      if (this.login) {
+        router.push({ name: 'Home' })
+      }
+    }
   },
   mounted() {
     this.fetchData();
-    if (this.login) {
-      router.push({ name: 'Wheel' })
-    }
   },
 };
 </script>
