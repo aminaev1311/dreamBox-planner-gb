@@ -58,14 +58,14 @@ export default createStore({
       }
     ],
     categories: [
-      {id: 1, name: 'Career', color: '#f5f5e2', num: 1},
-      {id: 2, name: 'Finance', color: 'rgba(204,102,0,0.23)', num: 2},
-      {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 3},
-      {id: 4, name: 'Health', color: 'rgba(204,102,153,0.4)', num: 4},
-      {id: 5, name: 'Relations', color: 'rgba(153,0,255,0.42)', num: 5},
-      {id: 6, name: 'Relax', color: 'rgba(51,102,204,0.47)', num: 6},
-      {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 7},
-      {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 8}
+      {id: 1, name: 'Career', color: '#f5f5e2', num: 0},
+      {id: 2, name: 'Finance', color: 'rgba(204,102,0,0.23)', num: 0},
+      {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 0},
+      {id: 4, name: 'Health', color: 'rgba(204,102,153,0.4)', num: 0},
+      {id: 5, name: 'Relations', color: 'rgba(153,0,255,0.42)', num: 0},
+      {id: 6, name: 'Relax', color: 'rgba(51,102,204,0.47)', num: 0},
+      {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 0},
+      {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 0}
     ],
   },
   mutations: {
