@@ -3,6 +3,8 @@ import Home from "@/views/Home.vue";
 import Vision from "@/views/Vision.vue";
 import Wheel from "@/views/Wheel";
 import Test from "@/views/Test";
+import NewGoals from "@/views/NewGoals";
+import NewTasks from "@/views/NewTasks";
 
 const routes = [
   {
@@ -24,6 +26,16 @@ const routes = [
     path: "/test",
     name: "Test",
     component: Test,
+  },
+  {
+    path: "/new-goals",
+    name: "NewGoals",
+    component: NewGoals,
+  },
+  {
+    path: "/tasks",
+    name: "NewTasks",
+    component: NewTasks,
   },
 ];
 
