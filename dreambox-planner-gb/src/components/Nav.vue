@@ -3,27 +3,39 @@
     <router-link
       to="/"
       class="nav-link"
-      :class="{ active: currentRouteName === 'Home' }"
-      >Tasks</router-link
-    >
+      :class="{ active: currentRouteName === 'Home' }">
+      Tasks
+    </router-link>
     <router-link
       to="/vision"
       class="nav-link"
-      :class="{ active: currentRouteName === 'Vision' }"
-      >Vision</router-link
-    >
+      :class="{ active: currentRouteName === 'Vision' }">
+      Goals
+    </router-link>
     <router-link
       to="/wheel"
       class="nav-link"
-      :class="{ active: currentRouteName === 'Wheel' }"
-      >Wheel</router-link
-    >
+      :class="{ active: currentRouteName === 'Wheel' }">
+      Wheel
+    </router-link>
     <router-link
       to="/test"
       class="nav-link"
-      :class="{ active: currentRouteName === 'Test' }"
-      >Test</router-link
-    >
+      :class="{ active: currentRouteName === 'Test' }">
+      Test
+    </router-link>
+    <router-link
+        to="/new-goals"
+        class="nav-link"
+        :class="{ active: currentRouteName === 'NewGoals' }">
+      New Goals
+    </router-link>
+    <router-link
+        to="/tasks"
+        class="nav-link"
+        :class="{ active: currentRouteName === 'NewTasks' }">
+      New Tasks
+    </router-link>
   </nav>
 </template>
 
