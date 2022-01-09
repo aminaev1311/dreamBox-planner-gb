@@ -1,11 +1,19 @@
 <template>
   <div class="tasks">
     <div v-for="goal in getGoals" :key="goal.id">
-      <Goal :title="goal.title" />
+      <Goal :title="goal.title" @createTask="createTask(goal)"/>
+      <NewCreateTask :category="getCategoryByGoal(goal.category_id)" :goal="goal"/>
+      <div v-if="cardIsShown">
+        <TaskDetails
+          @closeCard="closeCard"
+          :id="newTask.id"
+          :task="newTask"
+        />
+      </div>      
       <Task v-for="task in getTasksByGoal(goal.id)"
-            :key="task.id"
-            :task="task"
-            :category="getCategoryByGoal(goal.category_id)"
+          :key="task.id"
+          :task="task"
+          :category="getCategoryByGoal(goal.category_id)"
       />
     </div>
   </div>
@@ -15,10 +23,26 @@
 import {mapGetters} from "vuex";
 import Goal from "@/components/new-tasks/Goal";
 import Task from "@/components/new-tasks/Task";
+import TaskDetails from "@/components/TaskDetails";
+import NewCreateTask from "@/components/new-tasks/NewCreateTask"
 
 export default {
   name: "NewTasks",
-  components: {Task, Goal},
+  components: {Task, Goal, TaskDetails, NewCreateTask},
+  data() {
+    return {
+      cardIsShown: false,
+      currentGoal: null,
+      newTask: {
+        id: null,
+        title: null,
+        text: "",
+        deadline: null,
+        status: "active",
+        goal_id: null,
+      },
+    }
+  },
   computed: {
     ...mapGetters(["getGoals", "getTasksWithGoals", "getCategories"])
   },
@@ -34,7 +58,17 @@ export default {
       })
       console.log(result)
       return result
-    }
+    },
+    createTask(goal) {
+      this.cardIsShown = true;
+      this.newTask.goal_id = goal.id;
+      console.log(goal);
+    },
+    closeCard() {
+      this.cardIsShown = false;
+    },
+
+
   },
 }
 </script>

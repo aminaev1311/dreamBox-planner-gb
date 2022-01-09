@@ -26,7 +26,7 @@ export default createStore({
     tasksWithGoals: [
       {
         id: 1,
-        title: "Записать в фитнес",
+        title: "Записаться в фитнес",
         text: "weight 1",
         deadline: "10.01.2022",
         status: "active",
@@ -63,7 +63,7 @@ export default createStore({
       {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 0},
       {id: 4, name: 'Health / Appearance', color: 'rgba(204,102,153,0.4)', num: 0},
       {id: 5, name: 'Relations / Family', color: 'rgba(153,0,255,0.42)', num: 0},
-      {id: 6, name: 'Relax / Adventures', color: 'rgba(51,102,204,0.47)', num: 0},
+      {id: 6, name: 'Leisure', color: 'rgba(51,102,204,0.47)', num: 0},
       {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 0},
       {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 0}
     ],
@@ -163,6 +163,7 @@ export default createStore({
         if (!task.title) {
           task.title = task.text.split(" ").slice(0, 3).join(" ");
         }
+        task.id = Math.random()*10000;
         // if (!data.id) {
         commit("addTask", task);
       } catch (e) {

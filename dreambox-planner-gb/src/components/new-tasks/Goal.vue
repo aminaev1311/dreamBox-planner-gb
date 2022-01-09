@@ -1,6 +1,9 @@
 <template>
   <div class="goal">
     {{ title }}
+    <button class="btn" @click="$emit('createTask')">
+        <i class="fas fa-plus-circle"></i>
+    </button>
   </div>
 </template>
 

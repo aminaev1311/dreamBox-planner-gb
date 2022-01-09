@@ -20,7 +20,7 @@
           class="btn btn-outline-warning btn-sm"
           @click="setStatus('canceled')"
         >
-          <font-awesome-icon :icon="['far', 'times-circle']" />
+          <!-- <font-awesome-icon :icon="['far', 'times-circle']" /> -->
           <i class="fas fa-ban"></i>
           Cancel task
         </button>
@@ -58,8 +58,8 @@
         </div>
 
         <div class="form-div">
-          <label class="form-label col-sm-2"> Category: </label>
-          <select class="form-input col-sm-4" name="category">
+          <label class="form-label col-sm-2"> Goal: </label>
+          <select class="form-input col-sm-4" name="category" v-model="localTask.goal">
             <option v-for="goal in getGoals" :key="goal.title">{{ goal.title }}</option>
           </select>
         </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="card-bottom_buttons">
           <div @click="submitHandler" class="btn btn-primary btn-sm">
-            <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
+            <!-- <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" /> -->
             <i class="fas fa-paper-plane"></i>
             Submit
           </div>
@@ -108,6 +108,7 @@ export default {
         text: "",
         deadline: null,
         status: "",
+        goal_id: null
       },
     };
   },
@@ -150,6 +151,8 @@ export default {
   },
   mounted() {
     this.localTask = this.task;
+    const goal = this.getGoals.find( goal => goal.id ===  this.localTask.goal_id);
+    this.localTask.goal_id = goal.id;
   },
   updated() {
     this.localTask = this.task;
