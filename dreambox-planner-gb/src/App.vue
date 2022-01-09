@@ -55,6 +55,10 @@ export default {
 </script>
 
 <style>
+:root {
+  --bs-custom-primary: #62013C;
+}
+
 * {
   margin: 0;
   padding: 0;
