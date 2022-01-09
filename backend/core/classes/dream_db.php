@@ -69,9 +69,9 @@ class Dream_DB {
         return $result;
     }
 
-    public function insert_row ($array = []) {
+    public function insert_row ($table_name = '', $array = []) {
         $result = '';
-        if ($this->conn && !empty($array)) {
+        if ($this->conn && !empty($array) && !empty($table_name)) {
             
             $vals = array_values($array);
             foreach($vals as &$val) {
@@ -86,7 +86,7 @@ class Dream_DB {
             $tbl_names = implode(', ', array_keys($array));
             $tbl_vals = implode(', ', array_values($vals));
             
-            $query = "INSERT INTO tasks (" . $tbl_names . ") VALUES(" . $tbl_vals . ")";
+            $query = "INSERT INTO " . $table_name . " (" . $tbl_names . ") VALUES(" . $tbl_vals . ")";
             $res_obj = $this->conn->query($query);
             
             $result = $this->conn->insert_id;
@@ -94,9 +94,9 @@ class Dream_DB {
         return $result;
     }
 
-    public function update_row ($array = []) {
+    public function update_row ($table_name = '', $array = []) {
         $result = '';
-        if ($this->conn && !empty($array)) {
+        if ($this->conn && !empty($array) && !empty($table_name)) {
             $query_str = '';
             $i = 0;
             
@@ -111,7 +111,7 @@ class Dream_DB {
                 $i++;
             }
             
-            $query = "UPDATE tasks SET " . $query_str . " WHERE id = '" . $array['id'] . "'";
+            $query = "UPDATE " . $table_name . " SET " . $query_str . " WHERE id = '" . $array['id'] . "'";
             if ($this->conn->query($query)) {
                 $result = 'success';
             }
@@ -119,12 +119,12 @@ class Dream_DB {
         return $result;
     }
 
-    public function delete_row ($id = '') {
+    public function delete_row ($table_name = '', $id = '') {
         $result = '';
-        if (!empty($id)) {
+        if (!empty($id) && !empty($table_name)) {
             $int_id = intval($id);
             if ($int_id !== 0) {
-                $query = "DELETE FROM tasks WHERE id = " . $int_id;
+                $query = "DELETE FROM " . $table_name . " WHERE id = " . $int_id;
                 if ($this->conn->query($query)) {
                     $result = 'success';
                 }

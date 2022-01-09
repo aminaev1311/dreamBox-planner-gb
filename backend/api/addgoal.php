@@ -22,13 +22,13 @@ if (empty($front_data)) {
                 'text'  => $json->text,
                 'deadline' => $json->deadline,
                 'status' => $json->status,
-                'goal_id' => $json->goal_id
+                'category_id' => $json->category_id
             ];
             /* DATETIME YYYY-MM-DD hh:mm:ss */
 
             $dr_db = new Dream_DB();
 
-            $res_data['id'] = $dr_db->insert_row('tasks', $ins_ar);
+            $res_data['id'] = $dr_db->insert_row('goals', $ins_ar);
         } else {
             $res_data['errors'] = 'Empty title!';
         }

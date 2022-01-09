@@ -18,13 +18,13 @@ if (empty($front_data)) {
             'title' => $json->title,
             'text'  => $json->text,
             'deadline' => $json->deadline,
-            'goal_id' => $json->goal_id
+            'category_id' => $json->category_id
         ];
         /* DATETIME YYYY-MM-DD hh:mm:ss */
 
         if (!empty($ins_ar['id'])) {
             $dr_db = new Dream_DB();
-            $res_data['update'] = $dr_db->update_row('tasks', $ins_ar);
+            $res_data['update'] = $dr_db->update_row('goals', $ins_ar);
         }
     } else {
         $res_data['errors'] = 'Empty id!';

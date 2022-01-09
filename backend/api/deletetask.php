@@ -19,7 +19,7 @@ if (empty($front_data)) {
 
         if (!empty($ins_ar['id'])) {
             $dr_db = new Dream_DB();
-            $res_data['delete'] = $dr_db->delete_row($ins_ar['id']);
+            $res_data['delete'] = $dr_db->delete_row('tasks', $ins_ar['id']);
         }
     } else {
         $res_data['errors'] = 'Empty id!';

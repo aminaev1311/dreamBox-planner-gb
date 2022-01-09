@@ -2,10 +2,10 @@
 require_once '../core/display_errors.php';
 require_once '../core/classes/dream_db.php';
 
-$res_data = array('update' => '', 'errors' => '');
+$res_data = array('delete' => '', 'errors' => '');
 
 $front_data = file_get_contents('php://input');
-// $front_data = '{"id":"20","title":"simple title","text":"just text","deadline":"2022-02-22","status":"active"}';
+// $front_data = '{"id":"20"}';
 
 if (empty($front_data)) {
     $res_data['errors'] = 'Empty data!';
@@ -14,17 +14,12 @@ if (empty($front_data)) {
 
     if (!empty($json->id)) {
         $ins_ar = [
-            'id'    => $json->id,
-            'title' => $json->title,
-            'text'  => $json->text,
-            'deadline' => $json->deadline,
-            'goal_id' => $json->goal_id
+            'id' => $json->id
         ];
-        /* DATETIME YYYY-MM-DD hh:mm:ss */
 
         if (!empty($ins_ar['id'])) {
             $dr_db = new Dream_DB();
-            $res_data['update'] = $dr_db->update_row('tasks', $ins_ar);
+            $res_data['delete'] = $dr_db->delete_row('goals', $ins_ar['id']);
         }
     } else {
         $res_data['errors'] = 'Empty id!';
