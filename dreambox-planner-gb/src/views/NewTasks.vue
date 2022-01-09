@@ -7,6 +7,7 @@
             :task="task"
             :category="getCategoryByGoal(goal.category_id)"
       />
+      <NewItem :goal="goal"/>
     </div>
   </div>
 </template>
@@ -15,10 +16,11 @@
 import {mapGetters} from "vuex";
 import Goal from "@/components/new-tasks/Goal";
 import Task from "@/components/new-tasks/Task";
+import NewItem from "@/components/new-tasks/NewItem";
 
 export default {
   name: "NewTasks",
-  components: {Task, Goal},
+  components: {NewItem, Task, Goal},
   computed: {
     ...mapGetters(["getGoals", "getTasksWithGoals", "getCategories"])
   },
@@ -32,7 +34,6 @@ export default {
       const result = this.getCategories.find((category) => {
         return category.id === category_id
       })
-      console.log(result)
       return result
     }
   },
