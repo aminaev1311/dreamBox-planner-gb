@@ -78,10 +78,13 @@ export default createStore({
     setTasksWithGoals(state, payload) {
       state.tasksWithGoals = payload;
     },
-    addTask(state, {goal, title, text, deadline, status }) {
-      if (text) {
-        state.tasksWithGoals.push({goal, title, text, deadline, status });
-      }
+    // addTask(state, {goal, title, text, deadline, status }) {
+    //   if (text) {
+    //     state.tasksWithGoals.push({goal, title, text, deadline, status });
+    //   }
+    // },
+    addTask(state, newTask) {
+      state.tasksWithGoals.push(newTask)
     },
     addGoalMutation(state, { title, text, deadline, category }) {
       if (text) {
@@ -159,7 +162,7 @@ export default createStore({
     },
     async addVuexData({ commit }, task) {
       try {
-        console.log(task);
+        // console.log(task);
         if (!task.title) {
           task.title = task.text.split(" ").slice(0, 3).join(" ");
         }
