@@ -1,6 +1,5 @@
 <template>
-  <div class="goal" :class="{ initial: viewMode === 'initial',
-                              empty: viewMode === 'empty'}"
+  <div class="goal"
   >
     <p v-if="goal">{{ goal.title }}</p>
   </div>
@@ -12,7 +11,21 @@ export default {
   props: {
     initialState: Boolean,
     goal: Object,
-    viewMode: String // initial, active, empty
+    viewMode: String, // initial, active, empty,
+    category: Object
+  },
+  data() {
+    return {
+      showPlus: true,
+      showInput: false
+    }
+  },
+  methods: {
+    inputTitle() {
+     this.showPlus = false
+      this.showInput = true
+
+    }
   }
 }
 </script>
@@ -27,12 +40,8 @@ export default {
   color: white
   font-size: 12px
   font-weight: bold
-
-.initial
-  background: #f5f5e2
-  border: 1px dotted black
-
-.empty
-  background: rgba(255, 255, 255, 0.25)
-
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 2px
 </style>
