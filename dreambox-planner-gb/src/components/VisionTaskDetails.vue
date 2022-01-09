@@ -119,15 +119,11 @@ export default {
       this.$emit("closeCard");
     },
 
-    updateTask() {
-      console.log(this.$refs.taskForm);
-      this.updateData(this.localTask);
-    },
-
     submitHandler() {
       console.log("localtask", this.localTask);
       if (!this.localTask.id) {
         //if the tasks is new, the id is null. And addData is called to add task.
+        this.localTask.id = this.localTask.id + "9"
         this.addVuexData(this.localTask);
       } else {
         //if the task exists, update task is being called to update the task
@@ -151,9 +147,11 @@ export default {
   },
   mounted() {
     this.localTask = this.task;
+    this.localTask.id = this.id
   },
   updated() {
     this.localTask = this.task;
+    this.localTask.id = this.id
   },
 };
 </script>

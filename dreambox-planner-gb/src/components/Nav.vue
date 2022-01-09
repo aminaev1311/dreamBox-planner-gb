@@ -7,6 +7,12 @@
       Tasks
     </router-link>
     <router-link
+      to="/udemi"
+      class="nav-link"
+      :class="{ active: currentRouteName === 'Udemi' }">
+      Udemi
+    </router-link>
+    <router-link
       to="/vision"
       class="nav-link"
       :class="{ active: currentRouteName === 'Vision' }">

@@ -99,6 +99,7 @@ a
   font-size: 16px
 .udemiHeadline
   margin: 16px
+  margin-bottom: 32px
   text-align: left
   font-size: 12px
 .udemiAddTask
