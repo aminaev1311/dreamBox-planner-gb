@@ -31,6 +31,7 @@ export default {
 <style lang="sass" scoped>
 .categories-container
   display: flex
-  height: calc(100vh - 200px)
+  min-height: calc(100vh - 200px)
+  height: 100%
   max-width: 1200px
 </style>

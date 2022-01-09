@@ -4,17 +4,15 @@
       <div class="section-title">{{ category.name }}</div>
     </div>
     <div class="section-body" :style="{background: category.color}">
-      <GoalItem v-for="i in category.num" :key="i" :view-mode="'initial'"/>
-      <a href="#" v-for="goal in getGoalsInCategory()" :key="goal.id">
+<!--      <GoalItem v-for="i in category.num" :key="i" :view-mode="'initial'"/>-->
+      <a href="#" v-for="goal in getGoalsInCategory()" :key="goal.id" class="link">
         <GoalItem :view-mode="'active'"
                   :goal="goal"
                   @click="showCard(goal.id)"
         />
       </a>
 
-      <a href="#" v-for="i in getEmptyNum()" :key="i" @click="showCard(null)">
-        <GoalItem :view-mode="'empty'" />
-      </a>
+      <NewItem :category="category"/>
 
     </div>
     <div v-if="cardIsShown">
@@ -29,10 +27,11 @@
 import { mapGetters } from "vuex";
 import GoalItem from "@/components/new-goals/GoalItem";
 import GoalForm from "@/components/new-goals/GoalForm";
+import NewItem from "@/components/new-goals/NewItem";
 
 export default {
   name: "CategoryBlock",
-  components: {GoalForm, GoalItem},
+  components: {NewItem, GoalForm, GoalItem},
   props: {
     category: Object,
     goals: []
@@ -89,7 +88,7 @@ export default {
 
   &-header
     display: flex
-    justify-content: space-between
+    justify-content: center
     font-weight: bold
     font-size: 12px
     line-height: 14px
@@ -97,6 +96,7 @@ export default {
     margin-top: 10px
     margin-bottom: 5px
     align-items: center
+    height: 30px
 
   &-plus
     font-weight: normal
@@ -109,9 +109,14 @@ export default {
   &-body
     background-color: #E5E5E5
     border-radius: 4px
-    height: calc(100% - 21px)
+    min-height: calc(100% - 21px)
     padding: 6px
     display: flex
-    flex-direction: column-reverse
+    flex-direction: column
 
+.link
+  text-decoration: none
+
+  &:hover
+    text-decoration: underline
 </style>
