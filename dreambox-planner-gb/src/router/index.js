@@ -6,6 +6,7 @@ import Test from "@/views/Test";
 import Landing from "@/views/Landing.vue"
 import NewGoals from "@/views/NewGoals";
 import NewTasks from "@/views/NewTasks";
+import Udemi from "@/views/Udemi";
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: "/tasks",
     name: "NewTasks",
     component: NewTasks,
+  },
+  {
+    path: "/udemi",
+    name: "Udemi",
+    component: Udemi,
   },
 ];
 
