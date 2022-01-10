@@ -2,164 +2,133 @@
   <div class="card" id="card">
     <div class="card-header align-items-center">
       <div class="debug">
-        <div>ID: {{ localTask.id }}</div>
-        <div class="card-button">Status: {{ localTask.status }}</div>
-      </div>
-      <div>
-        <button
-          class="btn btn-outline-success btn-sm"
-          @click="setStatus('done')"
-        >
-          <font-awesome-icon :icon="['far', 'check-circle']" />
-          Mark as done
-        </button>
-      </div>
-
-      <div>
-        <button
-          class="btn btn-outline-warning btn-sm"
-          @click="setStatus('canceled')"
-        >
-          <font-awesome-icon :icon="['far', 'times-circle']" />
-          <i class="fas fa-ban"></i>
-          Cancel task
-        </button>
-      </div>
-
-      <div>
-        <button
-          class="btn btn-outline-danger btn-sm"
-          @click="deleteHandler(localTask.id)"
-        >
-          <font-awesome-icon :icon="['far', 'trash-alt']" class="icon-delete" />
-          Delete
-        </button>
+        <div>ID: {{ localGoal.id }}</div>
       </div>
     </div>
     <div class="card-body">
-      <form ref="taskForm">
+      <form>
         <div class="form-div">
           <input
-            class="form-input full-width form-control"
-            name="title"
-            v-model="localTask.title"
+              class="form-input full-width form-control"
+              name="title"
+              v-model="localGoal.title"
           />
         </div>
 
         <div class="form-div">
           <label class="form-label col-sm-2" for="date"> Due on: </label>
           <input
-            class="form-input col-sm-4"
-            id="date"
-            type="date"
-            name="deadline"
-            v-model="localTask.deadline"
+              class="form-input col-sm-4"
+              id="date"
+              type="date"
+              name="deadline"
+              v-model="localGoal.deadline"
           />
         </div>
 
         <div class="form-div">
           <label class="form-label col-sm-2"> Category: </label>
-          <select class="form-input col-sm-4" name="category">
-            <option>{{ task.goal }}</option>
-            <option v-for="goal in getGoals" :key="goal.title">{{ goal.title }}</option>
+          <select class="form-input col-sm-4" name="category" v-model="localGoal.category_id">
+<!--            <option :value="category_id">{{ category_id }}</option>-->
+            <option v-for="category in getCategories" :key="category.id" :value="category.id" >{{ category.name }}</option>
           </select>
         </div>
 
         <div class="form-div">
           <label class="form-label"> Description: </label> <br />
           <textarea
-            class="form-input"
-            id="taskBase"
-            cols="60"
-            rows="5"
-            name="text"
-            v-model="localTask.text"
+              class="form-input"
+              id="taskBase"
+              cols="60"
+              rows="5"
+              name="text"
+              v-model="localGoal.text"
           >
           </textarea>
         </div>
         <div class="card-bottom_buttons">
+
           <div @click="submitHandler" class="btn btn-primary btn-sm">
             <font-awesome-icon :icon="['far', 'arrow-alt-circle-down']" />
             <i class="fas fa-paper-plane"></i>
             Submit
           </div>
+
           <div @click="closeCard" class="btn btn-secondary btn-sm">
             <i class="fas fa-times"></i>
             Close
           </div>
+
         </div>
       </form>
+    </div>
+    <div class="card-footer footer" v-if="!newGoal">
+      <div class="footer-title">Tasks:</div>
+      <Task v-for="task in tasks" :key="task.id" :task="task"/>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
+import Task from "@/components/new-goals/Task";
 
 export default {
+  name: 'GoalForm',
+  components: {Task},
   props: {
-    task: Object,
-    id: String,
+    goal_id: Number,
+    category_id: Number
   },
   data() {
     return {
-      localTask: {
+      newGoal: false,
+      localGoal: {
         id: null,
         title: null,
         text: "",
         deadline: null,
-        status: "",
+        category_id: null
       },
-    };
+      tasks: []
+    }
   },
   methods: {
-    ...mapActions(["deleteVuexData", "updateVuexData", "addVuexData"]),
-
+    ...mapActions(["addGoalToVuex", "updateVuexGoal"]),
     closeCard() {
-      this.$emit("closeCard");
+      this.$emit('closeCard')
     },
-
     submitHandler() {
-      console.log("localtask", this.localTask);
-      if (!this.localTask.id) {
-        //if the tasks is new, the id is null. And addData is called to add task.
-        this.localTask.id = this.localTask.id + "9"
-        this.addVuexData(this.localTask);
+      if (!this.localGoal.id) {
+        this.addGoalToVuex(this.localGoal)
       } else {
-        //if the task exists, update task is being called to update the task
-        this.updateVuexData(this.localTask);
+        this.updateVuexGoal(this.localGoal)
       }
-      this.closeCard();
-    },
-
-    setStatus(status) {
-      this.localTask.status = status;
-    },
-
-    deleteHandler(id) {
-      console.log(id);
-      this.deleteVuexData(id);
-      this.closeCard();
-    },
+      this.closeCard()
+    }
   },
   computed: {
-    ...mapGetters(["getGoals"])
+    ...mapGetters(["getCategories", "getGoals", "getTasksWithGoals"])
   },
   mounted() {
-    this.localTask = this.task;
-    this.localTask.id = this.id
-  },
-  updated() {
-    this.localTask = this.task;
-    this.localTask.id = this.id
-  },
-};
+    this.newGoal = !this.goal_id
+    if (this.newGoal) {
+      this.localGoal.category_id = this.category_id
+    } else {
+      this.localGoal = this.getGoals.find(goal => goal.id === this.goal_id)
+      this.tasks = this.getTasksWithGoals.filter((task) => {
+        return task.goal_id === this.goal_id
+      })
+    }
+
+  }
+}
 </script>
 
 <style lang="sass" scoped>
 .debug
-    color: lightgray
-    font-size: x-small
+  color: lightgray
+  font-size: x-small
 .card
   flex-basis: 1000px
   background: #FFFFFF
@@ -218,7 +187,7 @@ export default {
   &-label
     flex-basis: 200px
     text-align: start
-    // padding-left: 18px
+  // padding-left: 18px
 
   &-input
     background: #FFFFFF
@@ -238,4 +207,11 @@ export default {
 
 .column
   flex-direction: column
+
+.footer
+  background: white
+
+  &-title
+    font-size: 14px
+    font-weight: bold
 </style>

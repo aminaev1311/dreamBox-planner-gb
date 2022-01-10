@@ -1,5 +1,9 @@
 <template>
-  <div class="container">
+  <div v-if="!login">
+    <Landing @login="loginHandler"/>
+  </div>
+
+  <div class="container" v-if="login">
     <Header />
     <Nav />
     <main class="main">
@@ -7,11 +11,6 @@
     </main>
     <Footer />
   </div>
-
-  <!--  <div id="nav">-->
-  <!--    <router-link to="/">Tasks</router-link> |-->
-  <!--    <router-link to="/about">Vision</router-link>-->
-  <!--  </div>-->
 </template>
 
 <script>
@@ -19,6 +18,8 @@ import { mapActions } from "vuex";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import Nav from "@/components/Nav";
+import Landing from "@/views/Landing.vue"
+import router from "@/router"
 
 export default {
   name: "App",
@@ -26,12 +27,21 @@ export default {
     Nav,
     Header,
     Footer,
+    Landing,
   },
   data() {
-    return {};
+    return {
+      login: false,
+    };
   },
   methods: {
     ...mapActions(["fetchData"]),
+    loginHandler() {
+      this.login = !this.login
+      if (this.login) {
+        router.push({ name: 'Home' })
+      }
+    }
   },
   mounted() {
     this.fetchData();
@@ -40,6 +50,10 @@ export default {
 </script>
 
 <style>
+:root {
+  --bs-custom-primary: #62013C;
+}
+
 * {
   margin: 0;
   padding: 0;

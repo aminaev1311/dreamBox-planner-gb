@@ -1,15 +1,15 @@
 <template>
-  <CardList />
+  <NewTasks />
 </template>
 
 <script>
-import CardList from "@/components/CardList.vue";
+import NewTasks from "@/views/NewTasks.vue";
 
 
 export default {
   name: "Home",
   components: {
-    CardList,
+    NewTasks,
     
   },
   data() {

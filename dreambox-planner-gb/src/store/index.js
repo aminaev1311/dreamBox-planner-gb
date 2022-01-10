@@ -11,50 +11,61 @@ import {
 export default createStore({
   state: {
     taskList: [],
-    goals: [],
+    goals: [
+      { id: 1, category_id: 1, title: "Повышение", text: "weight 1", deadline: null },
+      { id: 2, category_id: 1, title: "Большая зарплата", text: "weight 1", deadline: null },
+      { id: 3, category_id: 2, title: "Выплатить кредиты", text: "weight 1", deadline: null },
+      { id: 4, category_id: 3, title: "Прочитать книгу", text: "weight 1", deadline: null },
+      { id: 5, category_id: 3, title: "Изучить Vuex", text: "weight 1", deadline: null },
+      { id: 6, category_id: 3, title: "Быстро чтение", text: "weight 1", deadline: null },
+      { id: 7, category_id: 4, title: "Похудеть", text: "weight 1", deadline: null },
+      { id: 8, category_id: 6, title: "заняться йогой", text: "weight 1", deadline: null },
+      { id: 9, category_id: 6, title: "Медитация", text: "weight 1", deadline: null },
+      { id: 10, category_id: 7, title: "Научиться гадать", text: "weight 1", deadline: null },
+    ],
     tasksWithGoals: [
       {
         id: 1,
-        title: "weight 1",
+        title: "Записать в фитнес",
         text: "weight 1",
-        deadline: null,
+        deadline: "10.01.2022",
         status: "active",
-        goal: "weight"
+        goal_id: 7
       },
       {
         id: 2,
-        title: "weight 2",
+        title: "Сходить в фитнес хотя бы 3 раза за год",
         text: "weight 2",
         deadline: null,
         status: "active",
-        goal: "weight"
+        goal_id: 7
       },
       {
         id: 3,
-        title: "start-up1",
+        title: "Зпустить свой стартап",
         text: "start-up1",
-        deadline: null,
+        deadline: "10.01.2022",
         status: "active",
-        goal: "start-up"
+        goal_id: 2
       },
       {
         id: 4,
-        title: "start-up2",
+        title: "Зарабоать первый миллион",
         text: "start-up2",
         deadline: null,
         status: "active",
-        goal: "start-up"
+        goal_id: 2
       }
     ],
     categories: [
-      {id: 1, name: 'Career', color: '#CCCC00', num: 1},
-      {id: 2, name: 'Finance', color: '#CC6600', num: 2},
-      {id: 3, name: 'Growth', color: '#FF3333', num: 3},
-      {id: 4, name: 'Health', color: '#CC6699', num: 4},
-      {id: 5, name: 'Relations', color: '#9900FF', num: 5},
-      {id: 6, name: 'Relax', color: '#3366CC', num: 6},
-      {id: 7, name: 'Spiritual', color: '#00CCCC', num: 7},
-      {id: 8, name: 'Sports', color: '#339933', num: 8}
+      {id: 1, name: 'Career / Business', color: '#f5f5e2', num: 0},
+      {id: 2, name: 'Finance', color: 'rgba(204,102,0,0.23)', num: 0},
+      {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 0},
+      {id: 4, name: 'Health / Appearance', color: 'rgba(204,102,153,0.4)', num: 0},
+      {id: 5, name: 'Relations / Family', color: 'rgba(153,0,255,0.42)', num: 0},
+      {id: 6, name: 'Relax / Adventures', color: 'rgba(51,102,204,0.47)', num: 0},
+      {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 0},
+      {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 0}
     ],
   },
   mutations: {
@@ -67,10 +78,13 @@ export default createStore({
     setTasksWithGoals(state, payload) {
       state.tasksWithGoals = payload;
     },
-    addTask(state, {goal, title, text, deadline, status }) {
-      if (text) {
-        state.tasksWithGoals.push({goal, title, text, deadline, status });
-      }
+    // addTask(state, {goal, title, text, deadline, status }) {
+    //   if (text) {
+    //     state.tasksWithGoals.push({goal, title, text, deadline, status });
+    //   }
+    // },
+    addTask(state, newTask) {
+      state.tasksWithGoals.push(newTask)
     },
     addGoalMutation(state, { title, text, deadline, category }) {
       if (text) {
@@ -91,6 +105,13 @@ export default createStore({
       const index = state.categories.findIndex((item) => item.id === category.id)
       state.categories[index] = category
       console.log("category updated: ", category)
+    },
+    addGoal(state, goal) {
+      state.goals.push(goal)
+    },
+    updateGoal(state, goal) {
+      const index = state.goals.findIndex((item) => item.id === goal.id)
+      state.goals[index] = goal
     }
   },
   getters: {
@@ -141,7 +162,7 @@ export default createStore({
     },
     async addVuexData({ commit }, task) {
       try {
-        console.log(task);
+        // console.log(task);
         if (!task.title) {
           task.title = task.text.split(" ").slice(0, 3).join(" ");
         }
@@ -215,6 +236,14 @@ export default createStore({
       // Здесь добавить логику работы с API
 
       commit("updateCategory", category)
+    },
+    async addGoalToVuex({ commit }, goal) {
+      // Здесь добавить логику работы с API
+
+      commit('addGoal', goal)
+    },
+    async updateVuexGoal({ commit }, goal) {
+      commit('updateGoal', goal)
     }
   },
   modules: {},
