@@ -6,7 +6,7 @@ $dr_db = new Dream_DB();
 
 $res = $dr_db->get_rows(
     'goals',
-    array('id', 'title', 'text', 'deadline', 'status', 'category_id')
+    array('id', 'title', 'text', 'deadline', 'category_id')
 );
 
 header("Access-Control-Allow-Origin: *");

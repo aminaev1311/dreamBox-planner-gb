@@ -7,35 +7,57 @@
 </head>
 <body>
 <div>
-    <form action="/temp/index.html" method="post">
-        <div id="start">Start</div>
-        <div id="stop">Stop</div>
-        <button type="submit">Send</button>
-    </form>
+    <h3 id="start">Start</h3>
+    <h3 id="stop">Stop</h3>
 </div>
+<div class="output"></div>
 <script>
+function sendFile (file) {
+    console.log("send file");
+    let fd = new FormData();
+    fd.append('voice', file);
+
+    let promise = fetch('/temp/udio.php', {
+        method: 'POST',
+        body: fd
+        }
+    )
+    .then(data => {
+        console.log(data);
+    });
+}
+
+console.log(navigator.mediaDevices);
+
 navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
         const mediaRecorder = new MediaRecorder(stream);
         let voice = [];
         document.querySelector('#start').addEventListener('click', function(){
+            console.log('start');
             mediaRecorder.start();
+            console.log('mediaRecorder = ', mediaRecorder);
         });
 
         mediaRecorder.addEventListener("dataavailable",function(event) {
             voice.push(event.data);
+            console.log('voice = ', voice);
         });
 
         document.querySelector('#stop').addEventListener('click', function(){
             mediaRecorder.stop();
+            console.log('mediaRecorder = ', mediaRecorder);
         });
 
         mediaRecorder.addEventListener("stop", function() {
             const voiceBlob = new Blob(voice, {
                 type: 'audio/wav'
             })
+            console.log('voiceBlob = ', voiceBlob);
+            sendFile (voiceBlob);
         });
     });
+
 </script>
 </body>
 </html>
