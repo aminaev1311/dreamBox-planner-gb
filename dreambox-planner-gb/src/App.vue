@@ -11,11 +11,6 @@
     </main>
     <Footer />
   </div>
-
-  <!--  <div id="nav">-->
-  <!--    <router-link to="/">Tasks</router-link> |-->
-  <!--    <router-link to="/about">Vision</router-link>-->
-  <!--  </div>-->
 </template>
 
 <script>
