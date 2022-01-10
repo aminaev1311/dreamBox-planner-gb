@@ -6,8 +6,12 @@
             :key="task.id"
             :task="task"
             :category="getCategoryByGoal(goal.category_id)"
+            @click="showCard(task.id)"
       />
       <NewItem :goal="goal"/>
+    </div>
+    <div v-if="cardIsShown">
+      <TaskForm :task_id="taskIdForShow" @closeCard="closeCard"/>
     </div>
   </div>
 </template>
@@ -17,10 +21,17 @@ import {mapGetters} from "vuex";
 import Goal from "@/components/new-tasks/Goal";
 import Task from "@/components/new-tasks/Task";
 import NewItem from "@/components/new-tasks/NewItem";
+import TaskForm from "@/components/new-tasks/TaskForm";
 
 export default {
   name: "NewTasks",
-  components: {NewItem, Task, Goal},
+  data() {
+    return {
+      cardIsShown: false,
+      taskIdForShow: null
+    }
+  },
+  components: {TaskForm, NewItem, Task, Goal},
   computed: {
     ...mapGetters(["getGoals", "getTasksWithGoals", "getCategories"])
   },
@@ -35,6 +46,13 @@ export default {
         return category.id === category_id
       })
       return result
+    },
+    showCard(task_id) {
+      this.taskIdForShow = task_id
+      this.cardIsShown = true
+    },
+    closeCard() {
+      this.cardIsShown = false
     }
   },
 }

@@ -28,7 +28,7 @@ export default createStore({
         id: 1,
         title: "Записать в фитнес",
         text: "weight 1",
-        deadline: "10.01.2022",
+        deadline: "2022-02-28",
         status: "active",
         goal_id: 7
       },
@@ -44,7 +44,7 @@ export default createStore({
         id: 3,
         title: "Зпустить свой стартап",
         text: "start-up1",
-        deadline: "10.01.2022",
+        deadline: "2022-05-30",
         status: "active",
         goal_id: 2
       },
@@ -99,12 +99,12 @@ export default createStore({
     updateTask(state, task) {
       const index = state.tasksWithGoals.findIndex((item) => item.id === task.id);
       state.tasksWithGoals[index] = task;
-      console.log("item updated: ", task);
+      // console.log("item updated: ", task);
     },
     updateCategory(state, category) {
       const index = state.categories.findIndex((item) => item.id === category.id)
       state.categories[index] = category
-      console.log("category updated: ", category)
+      // console.log("category updated: ", category)
     },
     addGoal(state, goal) {
       state.goals.push(goal)
@@ -127,7 +127,7 @@ export default createStore({
       for (const key in fetchedTasksObject) {
         fetchedTasks.push(fetchedTasksObject[key]);
       }
-      console.log(fetchedTasks);
+      // console.log(fetchedTasks);
       commit("setTasks", fetchedTasks);
     },
     async fetchGoals({ commit }) {
