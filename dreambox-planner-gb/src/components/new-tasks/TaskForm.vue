@@ -1,0 +1,187 @@
+<template>
+  <div class="card" id="card">
+    <div class="card-header align-items-center">
+      <div class="debug">
+        <div>ID: {{ localTask.id }}</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-div">
+          <input
+              class="form-input full-width form-control"
+              name="title"
+              v-model="localTask.title"
+          />
+        </div>
+
+        <div class="form-div">
+          <label class="form-label col-sm-2" for="date"> Due on: </label>
+          <input
+              class="form-input col-sm-4"
+              id="date"
+              type="date"
+              name="deadline"
+              v-model="localTask.deadline"
+          />
+        </div>
+
+        <div class="form-div">
+          <label class="form-label col-sm-2"> Goal: </label>
+          <select class="form-input col-sm-4" name="category" v-model="localTask.goal_id">
+<!--            <option :value="category_id">{{ category_id }}</option>-->
+            <option v-for="goal in getGoals" :key="goal.id" :value="goal.id" >{{ goal.title }}</option>
+          </select>
+        </div>
+
+        <div class="form-div">
+          <label class="form-label"> Description: </label> <br />
+          <textarea
+              class="form-input"
+              id="taskBase"
+              cols="60"
+              rows="5"
+              name="text"
+              v-model="localTask.text"
+          >
+          </textarea>
+        </div>
+        <div class="card-bottom_buttons">
+
+          <div @click="closeCard" class="btn btn-secondary btn-sm">
+            <i class="fas fa-times"></i>
+            Close
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import {mapActions, mapGetters} from "vuex";
+
+export default {
+  name: 'TaskForm',
+  props: {
+    task_id: Number,
+    category_id: Number
+  },
+  data() {
+    return {
+      localTask: {
+        id: null,
+        title: null,
+        text: "",
+        deadline: null,
+        status: null,
+        goal_id: null
+      },
+    }
+  },
+  methods: {
+    ...mapActions(["addVuexData", "updateVuexData"]),
+    closeCard() {
+      this.$emit('closeCard')
+    },
+  },
+  computed: {
+    ...mapGetters(["getGoals", "getTasksWithGoals"])
+  },
+  mounted() {
+    this.localTask = this.getTasksWithGoals.find(task => task.id === this.task_id)
+  }
+}
+</script>
+
+<style lang="sass" scoped>
+.debug
+  color: lightgray
+  font-size: x-small
+.card
+  flex-basis: 1000px
+  background: #FFFFFF
+  border: 1px solid #E5E5E5
+  text-align: start
+  margin-top: 60px
+  position: absolute
+  top: 20%
+  left: 20%
+
+  &-header
+    padding: 5px 25px
+    display: flex
+    justify-content: space-between
+    border-bottom: 1px solid #E5E5E5
+
+  &-body
+    display: flex
+    flex-direction: column
+    padding: 11px 25px
+
+  &-button
+    background: #FFFFFF
+    border: 1px solid #E5E5E5
+    border-radius: 4px
+    padding: 4px 7px
+
+    &:hover
+      box-shadow: 0 0 5px #E5E5E5
+  &-bottom_buttons
+    display: flex
+    justify-content: space-between
+
+.icon
+  &-delete
+    color: red
+
+  &-close
+    font-weight: 900
+    font-size: 16px
+    line-height: 18px
+    color: #B3B3B3
+    margin-left: 16px
+
+    &:hover
+      color: black
+
+.form
+  width: 100%
+
+  &-div
+    display: flex
+    margin-bottom: 18px
+    align-items: center
+
+  &-label
+    flex-basis: 200px
+    text-align: start
+  // padding-left: 18px
+
+  &-input
+    background: #FFFFFF
+    border: 1px solid #E5E5E5
+    border-radius: 5px
+    padding: 6px 16px
+    font-weight: normal
+    font-size: 16px
+    line-height: 18px
+    color: #000000
+
+    &:focus
+      border: 1px solid #B3B3B3
+
+.full-width
+  width: 100%
+
+.column
+  flex-direction: column
+
+.footer
+  background: white
+
+  &-title
+    font-size: 14px
+    font-weight: bold
+</style>
