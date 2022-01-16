@@ -1,18 +1,17 @@
 <template>
   <div class="section">
     <div class="section-header">
-      <div class="section-title">{{ category.name }}</div>
+      <div class="section-title">{{ category.name.toUpperCase() }}</div>
     </div>
     <div class="section-body" :style="{background: category.color}">
-<!--      <GoalItem v-for="i in category.num" :key="i" :view-mode="'initial'"/>-->
-      <a href="#" v-for="goal in getGoalsInCategory()" :key="goal.id" class="link">
-        <GoalItem :view-mode="'active'"
-                  :goal="goal"
-                  @click="showCard(goal.id)"
+      
+        <GoalItem
+            v-for="goal in getGoalsInCategory()" :key="goal.id"
+            :goal="goal"
+            @click="showCard(goal.id)"
         />
-      </a>
 
-      <NewItem :category="category"/>
+        <NewItem :category="category"/>
 
     </div>
     <div v-if="cardIsShown">
@@ -48,12 +47,8 @@ export default {
   methods: {
     getGoalsInCategory() {
       return this.getGoals.filter(goal => {
-        return goal.category_id === this.category.id
+        return goal.category_id == this.category.id
       })
-    },
-    getEmptyNum() {
-      const active = this.getGoalsInCategory().length
-      return 10 - this.category.num - active
     },
     showCard(goal_id) {
       this.currentGoal = goal_id
@@ -113,10 +108,4 @@ export default {
     padding: 6px
     display: flex
     flex-direction: column
-
-.link
-  text-decoration: none
-
-  &:hover
-    text-decoration: underline
 </style>

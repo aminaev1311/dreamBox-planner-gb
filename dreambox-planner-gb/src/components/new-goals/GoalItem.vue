@@ -1,7 +1,6 @@
 <template>
-  <div class="goal"
-  >
-    <p v-if="goal">{{ goal.title }}</p>
+  <div class="goal">
+    <p>{{ goal.title }}</p>
   </div>
 </template>
 
@@ -9,10 +8,10 @@
 export default {
   name: 'GoalItem',
   props: {
-    initialState: Boolean,
+    // initialState: Boolean,
     goal: Object,
-    viewMode: String, // initial, active, empty,
-    category: Object
+    // viewMode: String, // initial, active, empty,
+    // category: Object
   },
   data() {
     return {
@@ -23,8 +22,7 @@ export default {
   methods: {
     inputTitle() {
      this.showPlus = false
-      this.showInput = true
-
+     this.showInput = true
     }
   }
 }
@@ -44,4 +42,6 @@ export default {
   align-items: center
   justify-content: center
   padding: 2px
+  &:hover
+    text-decoration: underline
 </style>

@@ -5,6 +5,7 @@ import {
   POST_URL,
   UPDATE_URL,
   GOALS,
+  GET_CATEGORIES_URL
   // TASK_WITH_GOALS,
 } from "../misc/constants.js";
 
@@ -23,6 +24,7 @@ export default createStore({
       { id: 9, category_id: 6, title: "Медитация", text: "weight 1", deadline: null },
       { id: 10, category_id: 7, title: "Научиться гадать", text: "weight 1", deadline: null },
     ],
+    
     tasksWithGoals: [
       {
         id: 1,
@@ -58,17 +60,20 @@ export default createStore({
       }
     ],
     categories: [
-      {id: 1, name: 'Career / Business', color: '#f5f5e2', num: 0},
-      {id: 2, name: 'Finance', color: 'rgba(204,102,0,0.23)', num: 0},
-      {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 0},
-      {id: 4, name: 'Health / Appearance', color: 'rgba(204,102,153,0.4)', num: 0},
-      {id: 5, name: 'Relations / Family', color: 'rgba(153,0,255,0.42)', num: 0},
-      {id: 6, name: 'Relax / Adventures', color: 'rgba(51,102,204,0.47)', num: 0},
-      {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 0},
-      {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 0}
+      // {id: 1, name: 'Career / Business', color: '#f5f5e2', num: 0},
+      // {id: 2, name: 'Finance', color: 'rgba(204,102,0,0.23)', num: 0},
+      // {id: 3, name: 'Growth', color: 'rgba(255,51,51,0.42)', num: 0},
+      // {id: 4, name: 'Health / Appearance', color: 'rgba(204,102,153,0.4)', num: 0},
+      // {id: 5, name: 'Relations / Family', color: 'rgba(153,0,255,0.42)', num: 0},
+      // {id: 6, name: 'Relax / Adventures', color: 'rgba(51,102,204,0.47)', num: 0},
+      // {id: 7, name: 'Spiritual', color: 'rgba(0,204,204,0.3)', num: 0},
+      // {id: 8, name: 'Sports', color: 'rgba(51,153,51,0.29)', num: 0}
     ],
   },
   mutations: {
+    setCategories(state, payload) {
+      state.categories = payload;
+    },
     setTasks(state, payload) {
       state.taskList = payload;
     },
@@ -121,6 +126,13 @@ export default createStore({
     getCategories: (state) => state.categories
   },
   actions: {
+    async fetchCategories({commit}) {
+      const response = await fetch(GET_CATEGORIES_URL);
+      const categoriesObject = await response.json();
+      const categories = Object.values(categoriesObject);
+      console.log(categories);
+      commit("setCategories", categories);
+    },
     async fetchData({ commit }) {
       let fetchedTasksObject = await fetch(GET_URL).then((res) => res.json());
       let fetchedTasks = [];

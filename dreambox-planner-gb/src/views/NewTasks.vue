@@ -42,10 +42,9 @@ export default {
       })
     },
     getCategoryByGoal(category_id) {
-      const result = this.getCategories.find((category) => {
+      return this.getCategories.filter((category) => {
         return category.id === category_id
       })
-      return result
     },
     showCard(task_id) {
       this.taskIdForShow = task_id
