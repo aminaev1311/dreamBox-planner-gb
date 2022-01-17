@@ -1,6 +1,6 @@
 <template>
   <div class="categories-container">
-    <CategoryBlock v-for="category in categories" :key="category.id" :category="category"/>
+    <CategoryBlock v-for="category in getCategories" :key="category.id" :category="category"/>
   </div>
 </template>
 

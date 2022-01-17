@@ -35,7 +35,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchData"]),
+    ...mapActions(["fetchData", "fetchCategories"]),
     loginHandler() {
       this.login = !this.login
       if (this.login) {
@@ -45,6 +45,7 @@ export default {
   },
   mounted() {
     this.fetchData();
+    this.fetchCategories();
   },
 };
 </script>
